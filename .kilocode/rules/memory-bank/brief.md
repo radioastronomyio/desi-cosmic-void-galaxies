@@ -7,7 +7,7 @@
 
 ## Project Identity
 
-**Repository:** `Proxmox-Astronomy-Lab/desi-cosmic-void-galaxies`  
+**Repository:** `radioastronomyio/desi-cosmic-void-galaxies`  
 **Status:** Phase 04 complete, entering Phase 05 (VAC ETL Sprint)
 
 This project transforms DESI DR1 Value Added Catalogs into a deeply enriched Analysis-Ready Dataset (ARD), then releases it to the community. The ARD serves as the shared foundation for three downstream research directions.

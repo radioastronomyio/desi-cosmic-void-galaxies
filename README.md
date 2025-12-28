@@ -12,8 +12,8 @@ tags:
   - tech: [python, postgresql, parquet, desi]
 related_documents:
   - "[ARD Specification](https://github.com/vintagedon/analysis-ready-datasets)"
-  - "[QSO Anomaly Detection](https://github.com/Proxmox-Astronomy-Lab/desi-qso-anomaly-detection)"
-  - "[Quasar Outflows](https://github.com/Proxmox-Astronomy-Lab/desi-quasar-outflows)"
+  - "[QSO Anomaly Detection](https://github.com/radioastronomyio/desi-qso-anomaly-detection)"
+  - "[Quasar Outflows](https://github.com/radioastronomyio/desi-quasar-outflows)"
 ---
 -->
 
@@ -32,8 +32,8 @@ This repository builds an enriched, analysis-ready dataset from DESI Data Releas
 
 Two downstream projects depend on this ARD:
 
-- [desi-qso-anomaly-detection](https://github.com/Proxmox-Astronomy-Lab/desi-qso-anomaly-detection) — ML anomaly detection on QSO spectra
-- [desi-quasar-outflows](https://github.com/Proxmox-Astronomy-Lab/desi-quasar-outflows) — AGN feedback and outflow energetics
+- [desi-qso-anomaly-detection](https://github.com/radioastronomyio/desi-qso-anomaly-detection) — ML anomaly detection on QSO spectra
+- [desi-quasar-outflows](https://github.com/radioastronomyio/desi-quasar-outflows) — AGN feedback and outflow energetics
 
 ---
 
@@ -116,20 +116,20 @@ This ARD integrates 9 DESI DR1 Value-Added Catalogs across galaxy and QSO domain
 
 | VAC | Purpose | Key Columns | Link |
 |-----|---------|-------------|------|
-| **FastSpecFit** | Stellar continuum + emission lines | stellar_mass, sfr, dn4000 | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/fastspecfit/) |
-| **PROVABGS** | Bayesian SED fitting with posteriors | stellar_mass_p50, sfr_p50, age | [docs](https://data.desi.lbl.gov/doc/releases/edr/vac/provabgs/) |
-| **DESIVAST** | Cosmic void classifications | void_id, algorithm, effective_radius | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/desivast/) |
-| **Gfinder** | Halo-based group catalog | group_id, halo_mass, richness | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/gfinder/) |
+| FastSpecFit | Stellar continuum + emission lines | stellar_mass, sfr, dn4000 | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/fastspecfit/) |
+| PROVABGS | Bayesian SED fitting with posteriors | stellar_mass_p50, sfr_p50, age | [docs](https://data.desi.lbl.gov/doc/releases/edr/vac/provabgs/) |
+| DESIVAST | Cosmic void classifications | void_id, algorithm, effective_radius | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/desivast/) |
+| Gfinder | Halo-based group catalog | group_id, halo_mass, richness | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/gfinder/) |
 
 ### QSO VACs
 
 | VAC | Purpose | Key Columns | Link |
 |-----|---------|-------------|------|
-| **AGN/QSO** | Spectral + IR classification | agn_type, wise_agn_flag | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/agnqso/) |
-| **CIV Absorber** | Intervening CIV systems | ew_civ, z_abs, vdisp | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/civ-absorber/) |
-| **MgII Absorber** | Intervening MgII systems | ew_mgii, z_abs | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/mgii-absorber/) |
-| **QMassIron** | Black hole masses | mbh_mgii, lbol, eddington_ratio | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/qmassiron/) |
-| **Stellar Mass/EmLine** | CIGALE masses + emission lines | mass_cg, oii_flux, oiii_flux | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/stellar-mass-emline/) |
+| AGN/QSO | Spectral + IR classification | agn_type, wise_agn_flag | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/agnqso/) |
+| CIV Absorber | Intervening CIV systems | ew_civ, z_abs, vdisp | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/civ-absorber/) |
+| MgII Absorber | Intervening MgII systems | ew_mgii, z_abs | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/mgii-absorber/) |
+| QMassIron | Black hole masses | mbh_mgii, lbol, eddington_ratio | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/qmassiron/) |
+| Stellar Mass/EmLine | CIGALE masses + emission lines | mass_cg, oii_flux, oiii_flux | [docs](https://data.desi.lbl.gov/doc/releases/dr1/vac/stellar-mass-emline/) |
 
 ---
 
@@ -218,7 +218,7 @@ Tasks are categorized by complexity for planning purposes.
 
 ## 📁 Repository Structure
 
-```
+```markdown
 desi-cosmic-void-galaxies/
 ├── 📂 work-logs/                     # Milestone-based development history
 │   ├── 01-catalog-acquisition/       # DESIVAST + FastSpecFit → PostgreSQL
@@ -240,7 +240,7 @@ desi-cosmic-void-galaxies/
 
 ## 🖥️ Infrastructure
 
-This project runs on the [Proxmox Astronomy Lab](https://github.com/Proxmox-Astronomy-Lab/proxmox-astronomy-lab) cluster.
+This project runs on the [Proxmox Astronomy Lab](https://github.com/radioastronomyio/proxmox-astronomy-lab) cluster.
 
 | Resource | Node | Purpose |
 |----------|------|---------|
@@ -259,15 +259,15 @@ This project runs on the [Proxmox Astronomy Lab](https://github.com/Proxmox-Astr
 | Project | Focus | Relationship |
 |---------|-------|--------------|
 | This repo | ARD factory + environmental quenching | Central data provider |
-| [desi-qso-anomaly-detection](https://github.com/Proxmox-Astronomy-Lab/desi-qso-anomaly-detection) | ML outlier detection in QSO spectra | Downstream consumer |
-| [desi-quasar-outflows](https://github.com/Proxmox-Astronomy-Lab/desi-quasar-outflows) | AGN feedback energetics | Downstream consumer |
+| [desi-qso-anomaly-detection](https://github.com/radioastronomyio/desi-qso-anomaly-detection) | ML outlier detection in QSO spectra | Downstream consumer |
+| [desi-quasar-outflows](https://github.com/radioastronomyio/desi-quasar-outflows) | AGN feedback energetics | Downstream consumer |
 
 ### Supporting Resources
 
 | Resource | Description |
 |----------|-------------|
 | [ARD Specification](https://github.com/vintagedon/analysis-ready-datasets) | Domain-agnostic spec (private) |
-| [Proxmox Astronomy Lab](https://github.com/Proxmox-Astronomy-Lab/proxmox-astronomy-lab) | Infrastructure documentation |
+| [Proxmox Astronomy Lab](https://github.com/radioastronomyio/proxmox-astronomy-lab) | Infrastructure documentation |
 | [DESI DR1 Portal](https://data.desi.lbl.gov/doc/releases/dr1/) | Official data documentation |
 | [DESIVAST VAC](https://data.desi.lbl.gov/doc/releases/dr1/vac/desivast/) | Void catalog source |
 | [FastSpecFit VAC](https://data.desi.lbl.gov/doc/releases/dr1/vac/fastspecfit/) | Galaxy properties source |
