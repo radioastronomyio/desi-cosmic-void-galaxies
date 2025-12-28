@@ -1,152 +1,165 @@
-# [PROJECT/AREA/SCOPE NAME] Architecture
-
-<!-- 
-Purpose: System design, structure, patterns, and key decisions
-Audience: AI agents needing to understand how this is organized/built
-Update Frequency: When architectural patterns emerge or change
--->
+# DESI Cosmic Void Galaxies ARD — Architecture
 
 ## Overview
 
-<!-- High-level architectural summary in 2-3 paragraphs -->
+This project implements a tiered materialization architecture for building an Analysis-Ready Dataset from DESI DR1. PostgreSQL serves as the enrichment engine where VAC joins and computations occur. Parquet is the distribution format for downstream consumption.
 
-[PROJECT/AREA/SCOPE NAME] is architected as...
+The ARD separates into two products: `ard.galaxy_ard` for galaxy science (quenching, environment) and `ard.qso_ard` for quasar science (outflows, anomalies). This separation avoids 70% null columns when querying galaxies and keeps science cases cleanly isolated.
 
-<!-- Describe the fundamental structure, organization, or design approach -->
+---
 
 ## Core Components
 
-<!-- For projects: technical components. For life areas: organizational areas. For repos: code modules -->
+### PostgreSQL Materialization Engine
+**Purpose:** Central database for VAC ingestion, joins, and derived column computation  
+**Location:** proj-pg01  
+**Key Characteristics:** Schemas `raw_catalogs` (source VACs), `ard` (materialized products), `science_analysis` (query views)
 
-### [Component/Area 1]
-**Purpose:** [What this does]  
-**Location:** [Where this lives - path, directory, section]  
-**Key Characteristics:** [Important details about this component]
+### Parquet Distribution Layer
+**Purpose:** Columnar format for efficient downstream queries and distribution  
+**Location:** proj-fs02 network share  
+**Key Characteristics:** Exported from PostgreSQL after validation, serves as the "release" format
 
-### [Component/Area 2]
-**Purpose:** [What this does]  
-**Location:** [Where this lives - path, directory, section]  
-**Key Characteristics:** [Important details about this component]
+### Spectral Tile Archive
+**Purpose:** FITS→Parquet converted spectra for Tier 2 embedding work  
+**Location:** proj-fs02 (`/mnt/spectral-tiles/`)  
+**Key Characteristics:** 12,207 tiles, 108 GB total, linked to catalog via TARGETID
 
-### [Component/Area 3]
-**Purpose:** [What this does]  
-**Location:** [Where this lives - path, directory, section]  
-**Key Characteristics:** [Important details about this component]
+---
 
 ## Structure
 
-<!-- Directory/file structure, organizational hierarchy, or system layout -->
-
 ```
-[project-root]/
-├── [directory-1]/        # [Purpose]
-│   ├── [subdirectory]/   # [Purpose]
-│   └── [file-pattern]    # [Purpose]
-├── [directory-2]/        # [Purpose]
-│   └── [subdirectory]/   # [Purpose]
-└── [directory-3]/        # [Purpose]
+desi-cosmic-void-galaxies/
+├── .kilocode/rules/memory-bank/  # Agent context (this directory)
+├── .internal-files/              # Research archives (gitignored)
+├── data/                         # Large files (LFS)
+├── docs/
+│   ├── ARD-SCHEMA-v2.md          # Column specifications
+│   ├── ARD-DATA-DICTIONARY-v2.md # Implementation reference
+│   └── documentation-standards/  # Templates
+├── scratch/                      # Working files, checkpoints, GDR prompts
+├── work-logs/
+│   ├── 01-catalog-acquisition/   # Phase 01 scripts + outputs
+│   ├── 02-catalog-validation/    # Phase 02 scripts + outputs
+│   ├── 03-spectral-tile-pipeline/# Phase 03 scripts + outputs
+│   └── 04-ard-foundations/       # Phase 04 documentation
+├── ROADMAP.md                    # Project phases and planning
+└── README.md                     # Project overview
 ```
 
-<!-- 
-Adapt this to scope:
-- Projects: File system structure
-- Life areas: Organizational structure (how information/tasks are organized)
-- Repos: Code architecture and module layout
--->
+---
 
 ## Design Patterns and Principles
 
-<!-- Architectural decisions, design patterns used, principles followed -->
-
 ### Key Patterns
 
-- **[Pattern 1]:** [Description and rationale]
-- **[Pattern 2]:** [Description and rationale]
-- **[Pattern 3]:** [Description and rationale]
-
-<!-- Example: "Event-driven architecture for decoupled component communication" -->
+- **Tiered Materialization:** Tier 1 (VAC joins, SQL-only) vs Tier 2 (derived computations, cluster/GPU)
+- **Factory-Consumer Model:** This repo is the ARD factory; downstream repos consume the product
+- **Schema-First Design:** ARD schema and data dictionary are authoritative; code follows schema
+- **Milestone-Based Work Logs:** Each phase is self-contained with scripts, outputs, and documentation
 
 ### Design Principles
 
-1. **[Principle 1]:** [What and why]
-2. **[Principle 2]:** [What and why]
-3. **[Principle 3]:** [What and why]
+1. **PostgreSQL first:** Do as much as possible in SQL before resorting to Python/cluster compute
+2. **Parquet for distribution:** Export only after validation; Parquet is the release artifact
+3. **Separate Galaxy/QSO:** Different science cases get different ARD tables
+4. **Provenance tracking:** Every column traces to a source VAC or computation method
 
-<!-- Example: "KISS principle: Prefer simple, terminal-ready solutions over complex frameworks" -->
+---
 
 ## Integration Points
 
-<!-- How this connects to other systems, projects, areas, or external services -->
-
 ### Internal Integrations
-- **[System/Project/Area]:** [How they connect, what's shared]
-- **[System/Project/Area]:** [How they connect, what's shared]
+- **proj-pg01:** PostgreSQL database, primary materialization engine
+- **proj-fs02:** Network storage for spectral tiles and Parquet exports
+- **radio-gpu01:** GPU compute for Tier 2 embeddings (future)
 
 ### External Integrations
-- **[Service/API/Tool]:** [Purpose, authentication, usage patterns]
-- **[Service/API/Tool]:** [Purpose, authentication, usage patterns]
+- **DESI Data Portal:** Source for VAC FITS files
+- **Downstream repos:** `desi-quasar-outflows`, `desi-qso-anomaly-detection` consume ARD
+
+---
 
 ## Data Flow
 
-<!-- How information/data moves through the system -->
-
 ```
-[Source] → [Processing/Transformation] → [Destination]
+DESI VAC FITS files
+       │
+       ▼ (Phase 05: ETL)
+┌─────────────────────────────┐
+│  raw_catalogs.* tables      │
+│  (PostgreSQL)               │
+└─────────────────────────────┘
+       │
+       ▼ (Phase 05: Join Orchestration)
+┌─────────────────────────────┐
+│  ard.galaxy_ard             │
+│  ard.qso_ard                │
+│  (PostgreSQL)               │
+└─────────────────────────────┘
+       │
+       ▼ (Phase 05: Export)
+┌─────────────────────────────┐
+│  Parquet files              │
+│  (proj-fs02)                │
+└─────────────────────────────┘
+       │
+       ▼ (Phase 06: Validation)
+       │
+       ▼ (Phase 07+: Tier 2)
+┌─────────────────────────────┐
+│  Enriched ARD + Embeddings  │
+└─────────────────────────────┘
 ```
 
-<!-- Describe the primary data flows, pipelines, or information movement patterns -->
+---
 
 ## Architectural Decisions
 
-<!-- Record significant architectural decisions with rationale -->
+### ADR-001: Separate Galaxy and QSO ARD Tables
+**Date:** 2025-12-28  
+**Decision:** Create `ard.galaxy_ard` and `ard.qso_ard` as separate tables (Option C)  
+**Rationale:** Science cases are distinct; avoids 70% null columns when querying galaxies  
+**Alternatives Considered:** Single unified table (rejected: too sparse), views over unified (rejected: query complexity)  
+**Implications:** ETL produces two products; downstream consumers select appropriate table
 
-### [Decision 1]: [Title]
-**Date:** YYYY-MM-DD  
-**Decision:** [What was decided]  
-**Rationale:** [Why this decision was made]  
-**Alternatives Considered:** [What else was considered and why rejected]  
-**Implications:** [What this means for the system]
+### ADR-002: PROVABGS for Stellar Mass
+**Date:** 2025-12-28  
+**Decision:** Use PROVABGS VAC for LOG_MSTAR instead of FastSpecFit  
+**Rationale:** Non-parametric SFH recovers +0.1-0.2 dex in quiescent systems  
+**Alternatives Considered:** FastSpecFit (rejected: parametric SFH underestimates quiescent mass)  
+**Implications:** Requires PROVABGS ingestion in Phase 05; LOG_SFR_TOTAL also from PROVABGS
 
-### [Decision 2]: [Title]
-**Date:** YYYY-MM-DD  
-**Decision:** [What was decided]  
-**Rationale:** [Why this decision was made]  
-**Alternatives Considered:** [What else was considered and why rejected]  
-**Implications:** [What this means for the system]
+### ADR-003: Spender for Spectral Embeddings
+**Date:** 2025-12-28  
+**Decision:** Use Spender autoencoder with 16-D latent space for embeddings  
+**Rationale:** Fits 16GB GPU, no image I/O needed, validated on astronomical spectra  
+**Alternatives Considered:** AstroCLIP (rejected: requires image I/O), Universal Spectrum Tokenizer (rejected: less mature)  
+**Implications:** Deferred to Tier 2 (Phase 07+); A4000 GPU adequate
+
+---
 
 ## Constraints and Limitations
 
-<!-- Technical, organizational, or resource constraints affecting architecture -->
+- **Token budget:** Memory-bank files must be concise for agent context windows
+- **Network bandwidth:** Spectral tile access assumes 2×10G LACP adequate; NVMe relocation is contingent
+- **PostgreSQL capacity:** proj-pg01 has ~32GB allocated; sufficient for catalog-scale work
+- **GPU memory:** A4000 (16GB) constrains embedding batch sizes and model complexity
 
-- **[Constraint 1]:** [Description and impact]
-- **[Constraint 2]:** [Description and impact]
-- **[Constraint 3]:** [Description and impact]
-
-<!-- Example: "Token budget requires on-demand file access patterns instead of loading entire vault" -->
+---
 
 ## Future Considerations
 
-<!-- Planned evolution, scalability considerations, known technical debt -->
-
 ### Planned Improvements
-- [Architectural improvement or refactoring planned]
-- [Architectural improvement or refactoring planned]
+- Tier 2 computation pipeline (Phase 07)
+- Automated validation suite for ARD releases
+- CI/CD for schema changes
 
 ### Scalability Considerations
-- [How this will scale or evolve]
-- [What might need to change as this grows]
+- DR2 will be ~10× larger; current architecture should scale with hardware
+- Parquet partitioning strategy may need refinement for larger datasets
 
 ### Known Technical Debt
-- [Shortcuts taken, areas needing refactoring]
-- [Shortcuts taken, areas needing refactoring]
-
-<!--
-SCOPE ADAPTATIONS:
-
-Projects: Technical architecture, system design, code patterns
-Life Areas: Organizational architecture, information structure, workflow patterns
-Repositories: Code architecture, module design, dependency structure
-
-This file should answer "How is this built/organized?" at a level that guides
-decision-making without requiring constant reference to implementation details.
--->
+- Legacy `DATA_DICTIONARY.md` superseded by v2.0 but not yet removed
+- Some Phase 01-03 scripts have placeholder implementations flagged with AI NOTEs

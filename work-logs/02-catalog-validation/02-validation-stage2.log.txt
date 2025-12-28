@@ -1,0 +1,148 @@
+2025-08-05 01:40:29,886 - INFO - Running validation on FULL dataset for maximum accuracy
+2025-08-05 01:40:29,886 - INFO - 🔬 STARTING STAGE 2 PHYSICAL PLAUSIBILITY VALIDATION
+2025-08-05 01:40:29,887 - INFO - ======================================================================
+2025-08-05 01:40:29,887 - INFO - Loading datasets...
+2025-08-05 01:40:29,887 - INFO - Loading galaxy data from FastSpecFit catalog...
+2025-08-05 01:40:29,893 - INFO - Executing query... (this may take a few minutes for full dataset)
+2025-08-05 01:40:30,145 - INFO - Calculating derived quantities...
+2025-08-05 01:40:30,146 - INFO - Loaded 0 galaxies with scientific quality cuts applied
+2025-08-05 01:40:30,146 - INFO - Quality cuts removed ~100.0% of raw data
+2025-08-05 01:40:30,146 - INFO - Loading void data from DESIVAST catalog...
+2025-08-05 01:40:30,189 - INFO - Loaded 10,752 voids across algorithms: ['REVOLVER' 'VIDE' 'ZOBOV' 'VoidFinder']
+2025-08-05 01:40:30,189 - INFO - 
+=== GENERATING DISTRIBUTION DIAGNOSTICS ===
+2025-08-05 01:40:30,782 - INFO - ✅ Stellar mass distribution: PASS
+2025-08-05 01:40:30,782 - INFO -    Excellent range after quality cuts: nan to nan
+2025-08-05 01:40:31,370 - INFO - ✅ SFR distribution: PASS
+2025-08-05 01:40:31,370 - INFO -    No negative SFR values
+2025-08-05 01:40:32,047 - INFO - ✅ D4000 distribution: FAIL
+2025-08-05 01:40:32,047 - INFO -    No valid D4000 measurements found
+2025-08-05 01:40:32,047 - INFO - ✅ Distribution diagnostics: COMPLETE
+2025-08-05 01:40:32,047 - INFO -    Generated 4 distribution plots
+2025-08-05 01:40:32,047 - INFO - 
+=== GENERATING SCALING RELATION DIAGNOSTICS ===
+2025-08-05 01:40:32,065 - ERROR - Validation failed with critical error: x and y must have length at least 2.
+2025-08-05 01:40:32,065 - ERROR - 
+❌ Stage 2 validation failed.
+2025-08-05 01:40:32,065 - ERROR - Address physical plausibility issues before proceeding.
+2025-08-05 01:41:32,560 - INFO - Running validation on FULL dataset for maximum accuracy
+2025-08-05 01:41:32,560 - INFO - 🔬 STARTING STAGE 2 PHYSICAL PLAUSIBILITY VALIDATION
+2025-08-05 01:41:32,560 - INFO - ======================================================================
+2025-08-05 01:41:32,560 - INFO - Loading datasets...
+2025-08-05 01:41:32,560 - INFO - Loading galaxy data from FastSpecFit catalog...
+2025-08-05 01:41:32,566 - INFO - Executing query... (this may take a few minutes for full dataset)
+2025-08-05 01:42:02,711 - INFO - Calculating derived quantities...
+2025-08-05 01:42:02,854 - INFO - Loaded 6,342,556 galaxies with relaxed quality cuts applied
+2025-08-05 01:42:02,854 - INFO - Quality cuts removed ~1.6% of raw data
+2025-08-05 01:42:02,854 - INFO - Loading void data from DESIVAST catalog...
+2025-08-05 01:42:02,893 - INFO - Loaded 10,752 voids across algorithms: ['REVOLVER' 'VIDE' 'ZOBOV' 'VoidFinder']
+2025-08-05 01:42:02,893 - INFO - 
+=== GENERATING DISTRIBUTION DIAGNOSTICS ===
+2025-08-05 01:42:03,759 - ERROR - 🚨 RED FLAG - Stellar mass range: Extreme masses detected: 6.0 to 13.0
+2025-08-05 01:42:04,793 - INFO - ✅ SFR distribution: PASS
+2025-08-05 01:42:04,793 - INFO -    No negative SFR values
+2025-08-05 01:42:06,244 - INFO - ✅ D4000 distribution: PASS
+2025-08-05 01:42:06,244 - INFO -    Excellent range after quality cuts: 0.50 to 5.00
+2025-08-05 01:42:06,244 - INFO - ✅ Distribution diagnostics: COMPLETE
+2025-08-05 01:42:06,244 - INFO -    Generated 4 distribution plots
+2025-08-05 01:42:06,244 - INFO - 
+=== GENERATING SCALING RELATION DIAGNOSTICS ===
+2025-08-05 01:42:07,794 - ERROR - 🚨 RED FLAG - Mass-Redshift Correlation: Strong correlation r=0.614 suggests systematic bias (FastSpecFit v1.0 issue)
+2025-08-05 01:42:09,126 - INFO - ✅ Main Sequence Slope: PASS
+2025-08-05 01:42:09,126 - INFO -    Slope 1.01 within expected range
+2025-08-05 01:42:11,293 - INFO - ✅ Scaling relations: COMPLETE
+2025-08-05 01:42:11,293 - INFO -    Generated 3 scaling relation plots
+2025-08-05 01:42:11,293 - INFO - 
+=== ANALYZING VOID-FINDER SYSTEMATICS ===
+2025-08-05 01:42:11,294 - INFO - Found algorithms: ['REVOLVER' 'VIDE' 'ZOBOV' 'VoidFinder']
+2025-08-05 01:42:12,160 - INFO - Void size statistics by algorithm:
+2025-08-05 01:42:12,162 - INFO - 
+            count       mean        std     median
+algorithm                                         
+REVOLVER     1992  17.240796   5.677797  15.876529
+VIDE         1478  17.246640   6.634247  15.382068
+VoidFinder   3765  12.601485   2.277420  11.927976
+ZOBOV        3517  13.723826  11.999877  11.500294
+2025-08-05 01:42:14,592 - INFO - ✅ Void count variation: PASS
+2025-08-05 01:42:14,592 - INFO -    Reasonable count variation (ratio: 2.5)
+2025-08-05 01:42:14,592 - INFO - ✅ Void size consistency: PASS
+2025-08-05 01:42:14,592 - INFO -    Good size consistency (ratio: 1.4)
+2025-08-05 01:42:14,592 - INFO - ✅ Void systematics: COMPLETE
+2025-08-05 01:42:14,592 - INFO -    Analyzed 4 algorithms
+2025-08-05 01:42:14,592 - INFO - 
+=== GENERATING VALIDATION SUMMARY ===
+2025-08-05 01:42:15,624 - INFO - Summary report saved to validation_data/stage2_summary.txt
+2025-08-05 01:42:15,624 - INFO - 
+======================================================================
+2025-08-05 01:42:15,624 - INFO - 📊 STAGE 2 VALIDATION SUMMARY
+2025-08-05 01:42:15,625 - INFO - ======================================================================
+2025-08-05 01:42:15,625 - INFO - 🚨 Red Flags: 2
+2025-08-05 01:42:15,625 - INFO - ⚠️  Warnings: 0
+2025-08-05 01:42:15,625 - INFO - 📈 Plots Generated: 10
+2025-08-05 01:42:15,625 - ERROR - 💥 PHYSICAL PLAUSIBILITY ISSUES DETECTED!
+2025-08-05 01:42:15,625 - ERROR - Review red flags before proceeding with scientific analysis.
+2025-08-05 01:42:15,625 - ERROR - 
+❌ Stage 2 validation failed.
+2025-08-05 01:42:15,625 - ERROR - Address physical plausibility issues before proceeding.
+2025-08-05 01:44:23,585 - INFO - Running validation on FULL dataset for maximum accuracy
+2025-08-05 01:44:23,585 - INFO - 🔬 STARTING STAGE 2 PHYSICAL PLAUSIBILITY VALIDATION
+2025-08-05 01:44:23,585 - INFO - ======================================================================
+2025-08-05 01:44:23,585 - INFO - Loading datasets...
+2025-08-05 01:44:23,585 - INFO - Loading galaxy data from FastSpecFit catalog...
+2025-08-05 01:44:23,592 - INFO - Executing query... (this may take a few minutes for full dataset)
+2025-08-05 01:44:50,948 - INFO - Calculating derived quantities...
+2025-08-05 01:44:51,093 - INFO - Loaded 6,342,556 galaxies with relaxed quality cuts applied
+2025-08-05 01:44:51,093 - INFO - Quality cuts removed ~1.6% of raw data
+2025-08-05 01:44:51,093 - INFO - Loading void data from DESIVAST catalog...
+2025-08-05 01:44:51,132 - INFO - Loaded 10,752 voids across algorithms: ['REVOLVER' 'VIDE' 'ZOBOV' 'VoidFinder']
+2025-08-05 01:44:51,132 - INFO - 
+=== GENERATING DISTRIBUTION DIAGNOSTICS ===
+2025-08-05 01:44:51,975 - INFO - ✅ Stellar mass distribution: PASS
+2025-08-05 01:44:51,975 - INFO -    Survey-appropriate range: 6.0 to 13.0
+2025-08-05 01:44:53,217 - INFO - ✅ SFR distribution: PASS
+2025-08-05 01:44:53,217 - INFO -    No negative SFR values
+2025-08-05 01:44:54,664 - INFO - ✅ D4000 distribution: PASS
+2025-08-05 01:44:54,664 - INFO -    Excellent range after quality cuts: 0.50 to 5.00
+2025-08-05 01:44:54,664 - INFO - ✅ Distribution diagnostics: COMPLETE
+2025-08-05 01:44:54,664 - INFO -    Generated 4 distribution plots
+2025-08-05 01:44:54,664 - INFO - 
+=== GENERATING SCALING RELATION DIAGNOSTICS ===
+2025-08-05 01:44:56,171 - WARNING - ⚠️  Mass-Redshift Correlation: Strong correlation r=0.614 - consistent with survey selection (Malmquist bias)
+2025-08-05 01:44:57,492 - INFO - ✅ Main Sequence Slope: PASS
+2025-08-05 01:44:57,492 - INFO -    Slope 1.01 within expected range
+2025-08-05 01:44:59,574 - INFO - ✅ Scaling relations: COMPLETE
+2025-08-05 01:44:59,574 - INFO -    Generated 3 scaling relation plots
+2025-08-05 01:44:59,574 - INFO - 
+=== ANALYZING VOID-FINDER SYSTEMATICS ===
+2025-08-05 01:44:59,574 - INFO - Found algorithms: ['REVOLVER' 'VIDE' 'ZOBOV' 'VoidFinder']
+2025-08-05 01:45:00,413 - INFO - Void size statistics by algorithm:
+2025-08-05 01:45:00,415 - INFO - 
+            count       mean        std     median
+algorithm                                         
+REVOLVER     1992  17.240796   5.677797  15.876529
+VIDE         1478  17.246640   6.634247  15.382068
+VoidFinder   3765  12.601485   2.277420  11.927976
+ZOBOV        3517  13.723826  11.999877  11.500294
+2025-08-05 01:45:02,784 - INFO - ✅ Void count variation: PASS
+2025-08-05 01:45:02,784 - INFO -    Reasonable count variation (ratio: 2.5)
+2025-08-05 01:45:02,784 - INFO - ✅ Void size consistency: PASS
+2025-08-05 01:45:02,784 - INFO -    Good size consistency (ratio: 1.4)
+2025-08-05 01:45:02,784 - INFO - ✅ Void systematics: COMPLETE
+2025-08-05 01:45:02,784 - INFO -    Analyzed 4 algorithms
+2025-08-05 01:45:02,784 - INFO - 
+=== GENERATING VALIDATION SUMMARY ===
+2025-08-05 01:45:04,028 - INFO - Summary report saved to validation_data/stage2_summary.txt
+2025-08-05 01:45:04,028 - INFO - 
+======================================================================
+2025-08-05 01:45:04,028 - INFO - 📊 STAGE 2 VALIDATION SUMMARY
+2025-08-05 01:45:04,028 - INFO - ======================================================================
+2025-08-05 01:45:04,028 - INFO - 🚨 Red Flags: 0
+2025-08-05 01:45:04,028 - INFO - ⚠️  Warnings: 1
+2025-08-05 01:45:04,028 - INFO - 📈 Plots Generated: 10
+2025-08-05 01:45:04,029 - INFO - 🎉 PHYSICAL PLAUSIBILITY VALIDATION PASSED!
+2025-08-05 01:45:04,029 - INFO - Data appears scientifically sound for cosmic void analysis.
+2025-08-05 01:45:04,029 - INFO - 
+✅ Stage 2 validation completed successfully.
+2025-08-05 01:45:04,029 - INFO - Data is ready for scientific void analysis.
+2025-08-05 01:45:04,029 - INFO - 
+Generated plots available in validation_plots/

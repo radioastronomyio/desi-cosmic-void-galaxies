@@ -1,0 +1,22 @@
+DESI Cosmic Void Analysis - Stage 2 Validation Summary
+============================================================
+
+Validation Date: 2025-08-05 01:45:04
+
+Galaxy Sample (Quality Cuts Applied):
+  Total Galaxies: 6,342,556
+  Quality Cut Retention: 98.4% of raw data
+  Redshift Range: 0.001 - 1.000
+  Mass Range (log): 6.00 - 12.97
+  SFR Range (log): -40.36 - 3.46
+  Quenched Fraction: 72.5%
+  High Quality: 0 (0.0%)
+
+Void Sample:
+  Total Voids: 10,752
+  Algorithms: REVOLVER, VIDE, ZOBOV, VoidFinder
+  Radius Range: 0.7 - 232.6 Mpc/h
+  Median Radius: 12.9 Mpc/h
+
+WARNINGS:
+  ⚠️  Mass-Redshift Correlation: Strong correlation r=0.614 - consistent with survey selection (Malmquist bias)

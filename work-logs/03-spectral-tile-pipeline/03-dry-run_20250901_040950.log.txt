@@ -1,0 +1,84 @@
+[2025-09-01 04:09:50] [INFO] - Found 0 completed tiles.
+[2025-09-01 04:09:50] [INFO] - Discovered 12207 tiles remaining to be processed.
+[2025-09-01 04:09:50] [INFO] - Ready to process 5 batches of up to 8 tiles each.
+[2025-09-01 04:09:50] [INFO] - --- Starting Batch 1/5 ---
+[2025-09-01 04:10:25] [INFO] - --- Batch Summary ---
+[2025-09-01 04:10:25] [INFO] -   Tile 10304: FITS Size=172.46 MB, Parquet Size=0.43 MB
+[2025-09-01 04:10:25] [INFO] -   Tile 10305: FITS Size=8.32 MB, Parquet Size=0.00 MB
+[2025-09-01 04:10:25] [INFO] -   Tile 10306: FITS Size=41.99 MB, Parquet Size=0.17 MB
+[2025-09-01 04:10:25] [INFO] -   Tile 10307: FITS Size=209.98 MB, Parquet Size=0.30 MB
+[2025-09-01 04:10:25] [INFO] -   Tile 10310: FITS Size=230.02 MB, Parquet Size=0.70 MB
+[2025-09-01 04:10:25] [INFO] -   Tile 10312: FITS Size=145.60 MB, Parquet Size=0.00 MB
+[2025-09-01 04:10:25] [INFO] -   Tile 10912: FITS Size=195.06 MB, Parquet Size=8.44 MB
+[2025-09-01 04:10:25] [INFO] -   Tile 10913: FITS Size=233.43 MB, Parquet Size=11.08 MB
+[2025-09-01 04:10:25] [INFO] - Total FITS Downloaded : 1236.86 MB
+[2025-09-01 04:10:25] [INFO] - Total Parquet Created: 21.13 MB
+[2025-09-01 04:10:25] [INFO] - Data Reduction        : 98.29%
+[2025-09-01 04:10:25] [INFO] - Effective Batch Speed : 35.58 MB/s
+[2025-09-01 04:10:25] [INFO] - ---------------------
+[2025-09-01 04:10:25] [INFO] - --- Finished Batch 1/5 in 34.76 seconds ---
+[2025-09-01 04:10:25] [INFO] - --- Starting Batch 2/5 ---
+[2025-09-01 04:11:04] [INFO] - --- Batch Summary ---
+[2025-09-01 04:11:04] [INFO] -   Tile 10313: FITS Size=270.10 MB, Parquet Size=0.70 MB
+[2025-09-01 04:11:04] [INFO] -   Tile 10314: FITS Size=152.00 MB, Parquet Size=0.00 MB
+[2025-09-01 04:11:04] [INFO] -   Tile 10315: FITS Size=435.12 MB, Parquet Size=0.96 MB
+[2025-09-01 04:11:04] [INFO] -   Tile 10316: FITS Size=343.45 MB, Parquet Size=0.84 MB
+[2025-09-01 04:11:04] [INFO] -   Tile 10368: FITS Size=155.01 MB, Parquet Size=0.00 MB
+[2025-09-01 04:11:04] [INFO] -   Tile 10369: FITS Size=146.59 MB, Parquet Size=0.00 MB
+[2025-09-01 04:11:04] [INFO] -   Tile 10372: FITS Size=109.88 MB, Parquet Size=0.00 MB
+[2025-09-01 04:11:04] [INFO] -   Tile 10373: FITS Size=1.50 MB, Parquet Size=0.00 MB
+[2025-09-01 04:11:04] [INFO] - Total FITS Downloaded : 1613.64 MB
+[2025-09-01 04:11:04] [INFO] - Total Parquet Created: 2.50 MB
+[2025-09-01 04:11:04] [INFO] - Data Reduction        : 99.84%
+[2025-09-01 04:11:04] [INFO] - Effective Batch Speed : 41.31 MB/s
+[2025-09-01 04:11:04] [INFO] - ---------------------
+[2025-09-01 04:11:05] [INFO] - --- Finished Batch 2/5 in 39.07 seconds ---
+[2025-09-01 04:11:05] [INFO] - --- Starting Batch 3/5 ---
+[2025-09-01 04:11:57] [INFO] - --- Batch Summary ---
+[2025-09-01 04:11:57] [INFO] -   Tile 10374: FITS Size=222.53 MB, Parquet Size=0.00 MB
+[2025-09-01 04:11:57] [INFO] -   Tile 10375: FITS Size=77.87 MB, Parquet Size=0.00 MB
+[2025-09-01 04:11:57] [INFO] -   Tile 10384: FITS Size=184.82 MB, Parquet Size=0.17 MB
+[2025-09-01 04:11:57] [INFO] -   Tile 10385: FITS Size=4.90 MB, Parquet Size=0.00 MB
+[2025-09-01 04:11:57] [INFO] -   Tile 10386: FITS Size=4.90 MB, Parquet Size=0.00 MB
+[2025-09-01 04:11:57] [INFO] -   Tile 10391: FITS Size=231.30 MB, Parquet Size=9.08 MB
+[2025-09-01 04:11:57] [INFO] -   Tile 10396: FITS Size=270.58 MB, Parquet Size=11.10 MB
+[2025-09-01 04:11:57] [INFO] -   Tile 10397: FITS Size=682.47 MB, Parquet Size=17.42 MB
+[2025-09-01 04:11:57] [INFO] - Total FITS Downloaded : 1679.38 MB
+[2025-09-01 04:11:57] [INFO] - Total Parquet Created: 37.77 MB
+[2025-09-01 04:11:57] [INFO] - Data Reduction        : 97.75%
+[2025-09-01 04:11:57] [INFO] - Effective Batch Speed : 31.92 MB/s
+[2025-09-01 04:11:57] [INFO] - ---------------------
+[2025-09-01 04:11:57] [INFO] - --- Finished Batch 3/5 in 52.61 seconds ---
+[2025-09-01 04:11:57] [INFO] - --- Starting Batch 4/5 ---
+[2025-09-01 04:12:55] [INFO] - --- Batch Summary ---
+[2025-09-01 04:12:55] [INFO] -   Tile 10261: FITS Size=66.72 MB, Parquet Size=0.30 MB
+[2025-09-01 04:12:55] [INFO] -   Tile 10262: FITS Size=196.34 MB, Parquet Size=0.56 MB
+[2025-09-01 04:12:55] [INFO] -   Tile 10263: FITS Size=209.12 MB, Parquet Size=0.70 MB
+[2025-09-01 04:12:55] [INFO] -   Tile 10268: FITS Size=211.26 MB, Parquet Size=0.57 MB
+[2025-09-01 04:12:55] [INFO] -   Tile 10269: FITS Size=190.37 MB, Parquet Size=0.30 MB
+[2025-09-01 04:12:55] [INFO] -   Tile 10271: FITS Size=39.01 MB, Parquet Size=0.17 MB
+[2025-09-01 04:12:55] [INFO] -   Tile 10398: FITS Size=597.31 MB, Parquet Size=18.63 MB
+[2025-09-01 04:12:55] [INFO] -   Tile 10399: FITS Size=882.18 MB, Parquet Size=21.26 MB
+[2025-09-01 04:12:55] [INFO] - Total FITS Downloaded : 2392.32 MB
+[2025-09-01 04:12:55] [INFO] - Total Parquet Created: 42.51 MB
+[2025-09-01 04:12:55] [INFO] - Data Reduction        : 98.22%
+[2025-09-01 04:12:55] [INFO] - Effective Batch Speed : 41.59 MB/s
+[2025-09-01 04:12:55] [INFO] - ---------------------
+[2025-09-01 04:12:55] [INFO] - --- Finished Batch 4/5 in 57.52 seconds ---
+[2025-09-01 04:12:55] [INFO] - --- Starting Batch 5/5 ---
+[2025-09-01 04:13:33] [INFO] - --- Batch Summary ---
+[2025-09-01 04:13:33] [INFO] -   Tile 10274: FITS Size=122.58 MB, Parquet Size=0.17 MB
+[2025-09-01 04:13:33] [INFO] -   Tile 10275: FITS Size=2.77 MB, Parquet Size=0.00 MB
+[2025-09-01 04:13:33] [INFO] -   Tile 10278: FITS Size=2.77 MB, Parquet Size=0.00 MB
+[2025-09-01 04:13:33] [INFO] -   Tile 10279: FITS Size=31.77 MB, Parquet Size=0.00 MB
+[2025-09-01 04:13:33] [INFO] -   Tile 10280: FITS Size=219.35 MB, Parquet Size=0.30 MB
+[2025-09-01 04:13:33] [INFO] -   Tile 10281: FITS Size=2.35 MB, Parquet Size=0.00 MB
+[2025-09-01 04:13:33] [INFO] -   Tile 10282: FITS Size=48.58 MB, Parquet Size=0.00 MB
+[2025-09-01 04:13:33] [INFO] -   Tile 10283: FITS Size=363.49 MB, Parquet Size=1.24 MB
+[2025-09-01 04:13:33] [INFO] - Total FITS Downloaded : 793.65 MB
+[2025-09-01 04:13:33] [INFO] - Total Parquet Created: 1.72 MB
+[2025-09-01 04:13:33] [INFO] - Data Reduction        : 99.78%
+[2025-09-01 04:13:33] [INFO] - Effective Batch Speed : 21.11 MB/s
+[2025-09-01 04:13:33] [INFO] - ---------------------
+[2025-09-01 04:13:33] [INFO] - --- Finished Batch 5/5 in 37.60 seconds ---
+[2025-09-01 04:13:33] [INFO] - ✅ Run finished.

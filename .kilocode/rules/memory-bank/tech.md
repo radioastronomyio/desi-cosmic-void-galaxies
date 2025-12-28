@@ -1,211 +1,220 @@
-# [PROJECT/AREA/SCOPE NAME] Technology Stack
-
-<!-- 
-Purpose: Technologies, tools, setup instructions, and technical constraints
-Audience: AI agents needing to understand the technical environment
-Update Frequency: When technologies are added/removed or setup changes
--->
+# DESI Cosmic Void Galaxies ARD — Technology Stack
 
 ## Technology Stack
 
-<!-- Core technologies, frameworks, languages, or tools used -->
-
 ### Primary Technologies
-- **[Technology 1]:** [Version] - [Purpose/role]
-- **[Technology 2]:** [Version] - [Purpose/role]
-- **[Technology 3]:** [Version] - [Purpose/role]
 
-<!-- Example: "Python: 3.11+ - Core scripting and automation" -->
+- **PostgreSQL:** 14+ — Materialization engine, VAC joins, derived columns
+- **Python:** 3.11+ — ETL scripts, validation, Parquet export
+- **Parquet:** Apache Parquet — Distribution format, columnar queries
 
 ### Supporting Technologies
-- **[Technology 1]:** [Version] - [Purpose/role]
-- **[Technology 2]:** [Version] - [Purpose/role]
-- **[Technology 3]:** [Version] - [Purpose/role]
 
-<!-- 
-Adapt to scope:
-- Projects/Repos: Programming languages, frameworks, libraries
-- Life Areas: Applications, tools, platforms used for organization
--->
+- **Astropy:** 5.0+ — FITS I/O, coordinate transforms, unit handling
+- **Pandas:** 2.0+ — DataFrame operations, data validation
+- **PyArrow:** 14.0+ — Parquet read/write, schema enforcement
+- **psycopg2:** 2.9+ — PostgreSQL connectivity
+- **SQLAlchemy:** 2.0+ — ORM for complex queries (optional)
+
+### Future Technologies (Tier 2)
+
+- **pPXF:** Stellar kinematics, Lick indices
+- **DisPerSE:** Cosmic web reconstruction
+- **PyTorch:** Spender autoencoder inference
+- **FAISS:** Vector similarity search for embeddings
+
+---
 
 ## Dependencies
 
-<!-- External dependencies, libraries, services required -->
-
 ### Required Dependencies
+
 ```
-[dependency-1]==[version]  # [Purpose]
-[dependency-2]==[version]  # [Purpose]
-[dependency-3]>=[version]  # [Purpose]
+astropy>=5.0        # FITS handling, coordinates
+pandas>=2.0         # DataFrames
+pyarrow>=14.0       # Parquet I/O
+psycopg2>=2.9       # PostgreSQL driver
+numpy>=1.24         # Numerical operations
+scipy>=1.10         # Spatial queries (cKDTree)
 ```
 
 ### Optional Dependencies
+
 ```
-[dependency-1]==[version]  # [Purpose, when needed]
-[dependency-2]==[version]  # [Purpose, when needed]
+sqlalchemy>=2.0     # ORM (when complex queries needed)
+matplotlib>=3.7     # Validation plots
+seaborn>=0.12       # Statistical visualization
+tqdm>=4.65          # Progress bars for ETL
 ```
 
-<!-- For life areas, this might be "Required Tools" like Obsidian, specific plugins, etc. -->
+---
 
 ## Development Environment
 
-<!-- How to set up the environment to work on this -->
-
 ### Prerequisites
-- [Prerequisite 1 with version requirements]
-- [Prerequisite 2 with version requirements]
-- [Prerequisite 3 with version requirements]
+
+- Python 3.11+ with pip/conda
+- PostgreSQL client tools (psql)
+- Network access to proj-pg01 (192.168.x.x)
+- Network access to proj-fs02 (spectral tiles)
 
 ### Setup Instructions
 
 ```bash
-# Clone/access
-[command to get the project/area]
+# Clone repository
+git clone https://github.com/Proxmox-Astronomy-Lab/desi-cosmic-void-galaxies.git
+cd desi-cosmic-void-galaxies
+
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+# .venv\Scripts\activate   # Windows
 
 # Install dependencies
-[command to install dependencies]
+pip install -r requirements.txt  # (when created)
 
-# Configure
-[command to configure environment]
+# Configure database connection
+cp .env.example .env
+# Edit .env with proj-pg01 credentials
 
 # Verify setup
-[command to verify everything works]
+python -c "import astropy; import pandas; import pyarrow; print('OK')"
 ```
 
-### Environment Variables / Configuration
+### Environment Variables
 
 ```bash
-[VAR_NAME]=value  # [Description of what this configures]
-[VAR_NAME]=value  # [Description of what this configures]
+PGHOST=proj-pg01              # PostgreSQL host
+PGPORT=5432                   # PostgreSQL port
+PGDATABASE=desi_ard           # Database name
+PGUSER=ard_user               # Database user
+PGPASSWORD=***                # Database password
+SPECTRAL_TILES=/mnt/proj-fs02/spectral-tiles  # Tile archive path
 ```
 
-<!-- Or for life areas: "Configuration files" or "Setup requirements" -->
+---
 
 ## Infrastructure
 
-<!-- Where this runs, hosting, services, or organizational infrastructure -->
+### Compute Resources
 
-### Hosting / Runtime Environment
-- **Platform:** [Where this runs - cloud, local, VM, etc.]
-- **Resources:** [Memory, CPU, storage requirements]
-- **Access:** [How to access, URLs, connection details]
+| Resource | Specs | Role |
+|----------|-------|------|
+| proj-pg01 | 8 vCPU, 32GB RAM, SSD | PostgreSQL, materialization |
+| proj-fs02 | 2×10G LACP, 10TB | Network storage, Parquet exports |
+| radio-gpu01 | A4000 16GB | Tier 2 embeddings (future) |
 
-<!-- Example: "Runs on agents01 VM (192.168.100.11) with 4GB RAM allocated" -->
+### Network Topology
+
+```
+Workstation → proj-pg01 (PostgreSQL)
+           → proj-fs02 (spectral tiles, Parquet)
+           → radio-gpu01 (GPU compute, future)
+```
 
 ### External Services
-- **[Service 1]:** [Purpose, authentication method, usage]
-- **[Service 2]:** [Purpose, authentication method, usage]
 
-<!-- Example: "GitHub: Repository hosting, SSH key authentication" -->
+- **DESI Data Portal:** VAC FITS file downloads (HTTPS)
+- **GitHub:** Repository hosting, version control
+
+---
 
 ## Technical Constraints
 
-<!-- Limitations, requirements, or technical boundaries -->
-
 ### Performance Requirements
-- [Constraint 1 - latency, throughput, etc.]
-- [Constraint 2 - latency, throughput, etc.]
 
-### Security Constraints
-- [Security requirement or limitation]
-- [Security requirement or limitation]
+- ETL must complete within reasonable time (~hours, not days)
+- Parquet queries should return in seconds for typical analysis
+- Network access to spectral tiles must support streaming reads
 
-<!-- Example: "All data encrypted at rest with Bitlocker, E2E sync via Obsidian Sync" -->
+### Storage Constraints
+
+- PostgreSQL: ~32GB available for catalog tables
+- proj-fs02: ~500GB available for Parquet exports
+- Spectral tiles: 108GB (already converted)
 
 ### Compatibility Requirements
-- [Platform compatibility]
-- [Version requirements]
-- [Integration constraints]
+
+- PostgreSQL 14+ for JSON and array features
+- Python 3.11+ for modern typing and performance
+- Parquet schema must be compatible with PyArrow and DuckDB
+
+---
 
 ## Development Workflow
 
-<!-- How to work on this technically -->
-
 ### Version Control
-- **Repository:** [Git URL or location]
-- **Branching Strategy:** [How branches are used]
-- **Commit Conventions:** [How to write commit messages]
+
+- **Repository:** `https://github.com/Proxmox-Astronomy-Lab/desi-cosmic-void-galaxies`
+- **Branching:** Main branch for stable, feature branches for development
+- **Commit Conventions:** See `.kilocode/rules/commit-conventions.md`
+
+### Code Standards
+
+- **Headers:** All scripts use standardized headers with ORCID
+- **Comments:** Dual-audience pattern (human-first + AI NOTEs)
+- **Style:** Black formatting, type hints on function signatures
 
 ### Testing
-- **Test Framework:** [What's used for testing]
-- **Test Coverage:** [Current coverage, goals]
-- **Running Tests:** `[command to run tests]`
 
-### Build and Deployment
+- Validation scripts in `work-logs/02-catalog-validation/`
+- Statistical distribution checks against published DESI results
+- Cross-VAC consistency validation
 
-```bash
-# Build
-[command to build]
-
-# Test
-[command to test]
-
-# Deploy
-[command to deploy]
-```
+---
 
 ## Automation and Tooling
 
-<!-- Scripts, automation, CI/CD, or workflow tooling -->
-
 ### Available Scripts
-- `[script-name]` - [What it does]
-- `[script-name]` - [What it does]
-- `[script-name]` - [What it does]
 
-### CI/CD
-- **Platform:** [GitHub Actions, Jenkins, etc.]
-- **Triggers:** [When automation runs]
-- **Pipelines:** [What automated processes exist]
+| Location | Script | Purpose |
+|----------|--------|---------|
+| `work-logs/01-*/` | `03-etl-*.py` | VAC ingestion to PostgreSQL |
+| `work-logs/02-*/` | `01-validate-*.py` | Data validation |
+| `work-logs/03-*/` | `02-extract-*.py` | FITS→Parquet conversion |
 
 ### Development Tools
-- **[Tool 1]:** [Purpose, how used]
-- **[Tool 2]:** [Purpose, how used]
 
-<!-- Example: "Obsidian: Primary interface for vault management" -->
+- **DBeaver/pgAdmin:** PostgreSQL GUI for query development
+- **VS Code:** Primary editor with Python extension
+- **Git:** Version control
+
+---
 
 ## Troubleshooting
 
-<!-- Common issues and solutions -->
-
 ### Common Issues
 
-#### [Issue 1]
-**Problem:** [Description of the issue]  
-**Solution:** [How to resolve]
+#### PostgreSQL Connection Refused
+**Problem:** Cannot connect to proj-pg01  
+**Solution:** Verify VPN/network access, check `.env` credentials, confirm PostgreSQL is running
 
-#### [Issue 2]
-**Problem:** [Description of the issue]  
-**Solution:** [How to resolve]
+#### FITS File Corruption
+**Problem:** Astropy fails to read VAC FITS file  
+**Solution:** Re-download from DESI portal, verify checksum
+
+#### Parquet Schema Mismatch
+**Problem:** PyArrow rejects schema during write  
+**Solution:** Check column types against ARD-SCHEMA-v2.md, cast as needed
 
 ### Debug Commands
 
 ```bash
-# Check [something]
-[command]
+# Test PostgreSQL connection
+psql -h proj-pg01 -U ard_user -d desi_ard -c "SELECT 1"
 
-# Verify [something]
-[command]
+# Verify spectral tile access
+ls /mnt/proj-fs02/spectral-tiles/ | head
 
-# Reset [something]
-[command]
+# Check Parquet schema
+python -c "import pyarrow.parquet as pq; print(pq.read_schema('file.parquet'))"
 ```
+
+---
 
 ## Technical Documentation
 
-<!-- Links to relevant technical documentation -->
-
-- **[Technology/Tool]:** [Link to docs]
-- **[Technology/Tool]:** [Link to docs]
-- **Internal Runbooks:** [Path to operational procedures]
-
-<!--
-SCOPE ADAPTATIONS:
-
-Projects/Repos: Focus on programming languages, frameworks, build systems
-Life Areas: Focus on applications, tools, platforms used for organization
-Both: Setup instructions, technical constraints, workflow tooling
-
-This file should answer "What technologies are involved?" and "How do I set this up?"
-Keep setup instructions current - stale setup docs are worse than no docs.
--->
+- **DESI Data Model:** https://desi.lbl.gov/trac/wiki/DataModel
+- **Astropy FITS:** https://docs.astropy.org/en/stable/io/fits/
+- **PyArrow Parquet:** https://arrow.apache.org/docs/python/parquet.html
+- **PostgreSQL:** https://www.postgresql.org/docs/14/

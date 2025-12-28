@@ -1,73 +1,79 @@
-# [PROJECT/AREA/SCOPE NAME] Product Overview
-
-<!-- 
-Purpose: Why this exists, what problems it solves, how it works
-Audience: AI agents needing to understand value proposition and approach
-Update Frequency: Occasionally - when vision or approach evolves
--->
+# DESI Cosmic Void Galaxies ARD — Product Overview
 
 ## Problems Solved
 
-<!-- What pain points, gaps, or needs does this address? -->
+This project addresses:
 
-This [project/area/scope] addresses:
+- **Fragmented VAC ecosystem:** DESI DR1 has 9+ Value Added Catalogs with different schemas, formats, and access patterns. Researchers must manually join and reconcile data for each analysis.
 
-- **[Problem 1]:** [Description of the problem and its impact]
-- **[Problem 2]:** [Description of the problem and its impact]
-- **[Problem 3]:** [Description of the problem and its impact]
+- **Repeated preprocessing:** Every downstream project (quenching studies, anomaly detection, outflow analysis) independently implements the same VAC joins, quality filters, and derived columns.
 
-<!-- Example: "Manual compliance tracking is error-prone and time-consuming" -->
+- **Missing derived quantities:** Key physics quantities (sSFR, BPT classification, environmental density) require computation from raw VAC columns. Without standardization, each researcher implements their own version.
+
+- **No analysis-ready baseline:** Researchers start from raw FITS files rather than a curated, validated dataset optimized for their science case.
+
+---
 
 ## How It Works
 
-<!-- High-level approach, methodology, or operational model -->
+The DESI Cosmic Void Galaxies ARD is a materialized dataset built by joining 9 DESI Value Added Catalogs into two science-optimized products: a galaxy ARD (6.4M rows) and a QSO ARD (1.6M rows).
 
-[PROJECT/AREA/SCOPE NAME] works by...
-
-<!-- Describe the core mechanism, workflow, or approach. Keep this 2-4 paragraphs. -->
+PostgreSQL serves as the materialization engine. VAC FITS files are ingested into `raw_catalogs.*` tables, joined on TARGETID, and materialized into `ard.*` tables with derived columns. The final products are exported to Parquet for distribution.
 
 Key components:
-- **[Component 1]:** [What it does]
-- **[Component 2]:** [What it does]
-- **[Component 3]:** [What it does]
 
-<!-- 
-Example components:
-- Compliance mapping: Structured markdown files linking controls to procedures
-- Automation tooling: Scripts for generating compliance reports
-- Documentation: Runbooks and guides for implementation
--->
+- **VAC ETL Pipeline:** Ingests FITS → PostgreSQL with schema validation
+- **Join Orchestration:** Materializes unified ARD tables from 9 source VACs
+- **Derived Column Engine:** Computes LOG_sSFR, BPT_CLASS, EVOL_STAGE, BURST_RATIO
+- **Validation Suite:** Statistical distributions, cross-VAC consistency, completeness audits
+- **Parquet Export:** Distribution-ready columnar format
+
+---
 
 ## Goals and Outcomes
 
-<!-- What success looks like, key objectives, desired end state -->
-
 ### Primary Goals
-1. **[Goal 1]:** [Specific, measurable outcome]
-2. **[Goal 2]:** [Specific, measurable outcome]
-3. **[Goal 3]:** [Specific, measurable outcome]
+
+1. **Unified ARD Product:** Single source of truth joining 9 VACs with 70+ columns
+2. **Validated Quality:** Completeness audits, distribution checks, cross-VAC consistency verified
+3. **Downstream Enablement:** Three research projects (voids, outflows, anomalies) consume the ARD
 
 ### User Experience Goals
-<!-- For projects: end-user experience. For life areas: operator experience -->
 
-- [Desired experience or outcome]
-- [Desired experience or outcome]
-- [Desired experience or outcome]
-
-<!-- Example: "Users can generate compliance reports in under 5 minutes" -->
+- Researchers load one Parquet file instead of joining multiple FITS catalogs
+- Derived quantities (sSFR, BPT, environment) are pre-computed and validated
+- Schema documentation enables confident column selection
+- Quality filters are pre-applied; researchers work with science-ready samples
 
 ### Success Metrics
 
-<!-- How do we know this is working? Quantitative or qualitative measures -->
+- **Completeness:** >95% TARGETID join success across core VACs
+- **Validation:** Statistical distributions match published DESI results
+- **Adoption:** All three downstream projects successfully consume ARD
+- **Documentation:** Schema and data dictionary enable self-service usage
 
-- **[Metric 1]:** [What and how measured]
-- **[Metric 2]:** [What and how measured]
-- **[Metric 3]:** [What and how measured]
+---
 
-<!--
-SCOPE ADAPTATIONS:
+## Science Cases Enabled
 
-Projects: Focus on product features, user outcomes, technical capabilities
-Life Areas: Focus on organizational goals, personal outcomes, area effectiveness  
-Repositories: Focus on code quality, reusability, developer experience
--->
+### 1. Cosmic Void Galaxies & Environmental Quenching (Primary)
+
+How does the void environment affect galaxy evolution? The ARD provides:
+- Void/wall classifications from DESIVAST
+- Stellar mass, SFR, and sSFR from PROVABGS
+- D4000, HδA indices for stellar population age
+- Group membership for isolating environment effects
+
+### 2. Quasar Anomaly Detection
+
+What unusual QSO spectra exist in DESI DR1? The ARD provides:
+- Spectral embeddings (Spender 16-D latent vectors)
+- Reconstruction error as anomaly metric
+- BAL flags and absorption indices for known anomaly types
+
+### 3. Quasar Outflow Energetics
+
+What are the physical properties of QSO outflows? The ARD provides:
+- PCA-based systemic redshifts (Z_SYS) for accurate velocity measurements
+- CIV and MgII column densities and equivalent widths
+- Black hole masses and bolometric luminosities for Eddington normalization

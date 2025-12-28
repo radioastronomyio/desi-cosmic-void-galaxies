@@ -1,101 +1,89 @@
-# [PROJECT/AREA/SCOPE NAME] Context
-
-<!-- 
-Purpose: Current state, next steps, active decisions - the most frequently updated file
-Audience: AI agents needing to understand "where are we now?"
-Update Frequency: After every significant work session
-CRITICAL: Keep this current. Stale context is worse than no context.
--->
+# DESI Cosmic Void Galaxies ARD — Context
 
 ## Current State
-**Last Updated:** YYYY-MM-DD
-
-<!-- What's the current status? What was just completed? What's working/not working? -->
+**Last Updated:** 2025-12-28
 
 ### Recent Accomplishments
-- [What was completed in recent sessions]
-- [Key milestones reached]
-- [Problems solved]
+
+- Phase 04 (ARD Foundations) complete across 4 work sessions
+- Deep research validation by 3 frontier models (Gemini, GPT-5.2, Claude synthesis)
+- Discovered 5 previously unidentified VACs: PROVABGS, Gfinder, AGN/QSO, CIV, MgII, BHMass
+- ARD Schema v2.0 produced: 70+ columns across 9 tables
+- ARD Data Dictionary v2.0 produced: ~850 lines of implementation specs
+- Roadmap rewritten: ARD-first architecture, terminus at Phase 06 validation
+- Repository standardization complete: 15 scripts with dual-audience commenting, 14 AI NOTEs
+- All worklog READMEs updated
 
 ### Current Phase
-<!-- What phase/stage is this project/area in? Examples: Planning, Implementation, Maintenance, Growth -->
 
-We are currently in **[phase name]** which involves...
+We are currently at the **Phase 04 → Phase 05 transition**. Foundation work (schema design, planning, documentation) is complete. Ready to begin VAC ETL sprint.
 
 ### Active Work
-<!-- What's happening right now? What's in progress? -->
 
 Currently working on:
-1. **[Work item 1]:** [Status and details]
-2. **[Work item 2]:** [Status and details]
-3. **[Work item 3]:** [Status and details]
+1. **Phase 04 closeout:** Final documentation updates, memory-bank sync, git commit
+2. **Phase 05 preparation:** VAC acquisition planning, DESI data portal URLs
+
+---
 
 ## Next Steps
 
-<!-- What should happen next? Be specific and actionable. -->
+### Immediate (This Session)
+1. Update memory-bank files (this task)
+2. Git commit for Phase 04 deliverables
+3. Verify all files in place
 
-### Immediate (This Session / Next Session)
-1. [Specific actionable task]
-2. [Specific actionable task]
-3. [Specific actionable task]
-
-### Near-Term (Next Few Sessions)
-- [Larger work item or milestone]
-- [Larger work item or milestone]
-- [Larger work item or milestone]
+### Near-Term (Phase 05)
+- 05.1: VAC Acquisition — download FITS for 6 new VACs
+- 05.2: Galaxy VAC ETL — PROVABGS, Gfinder to PostgreSQL
+- 05.3: QSO VAC ETL — AGN/QSO, CIV, MgII, BHMass to PostgreSQL
+- 05.4: Join Orchestration — materialize `ard.galaxy_ard`, `ard.qso_ard`
+- 05.5: Light Validation & Parquet Export
 
 ### Future / Backlog
-- [Longer-term goals or deferred items]
-- [Longer-term goals or deferred items]
+- Phase 06: ARD Validation (completeness audit, statistical distributions, sanity checks)
+- Phase 07+: Tier 2 computations (Lick indices, k-NN, DisPerSE, Spender embeddings)
+- Phase 08+: Science analysis per downstream paper
+
+---
 
 ## Active Decisions
 
-<!-- Open questions, decisions to be made, options being considered -->
-
 ### Pending Decisions
-- **[Decision topic]:** [Options, considerations, who decides, timeline]
-- **[Decision topic]:** [Options, considerations, who decides, timeline]
+- **D4000_N source:** Verify FastSpecFit meets narrow-band definition during Phase 05 ETL
+- **UMAP coordinates:** Deferred to post-Tier 1
 
 ### Recent Decisions
-<!-- Document key decisions made recently so context is preserved -->
 
-- **YYYY-MM-DD - [Decision]:** [What was decided and why]
-- **YYYY-MM-DD - [Decision]:** [What was decided and why]
+- **2025-12-28 - ARD table structure:** Separate `ard.galaxy_ard` and `ard.qso_ard` tables (Option C). Rationale: Science cases distinct, avoids 70% null columns when querying galaxies.
+- **2025-12-28 - Stellar mass source:** PROVABGS over FastSpecFit. Rationale: Non-parametric SFH recovers +0.1-0.2 dex in quiescent systems.
+- **2025-12-28 - Embedding architecture:** Spender 16-D. Rationale: Fits 16GB GPU, no image I/O needed.
+- **2025-12-28 - Filament finding:** DisPerSE @ 3σ persistence. Rationale: Validated for BGS density.
+
+---
 
 ## Blockers and Dependencies
 
-<!-- What's blocking progress? What dependencies exist? -->
-
 ### Current Blockers
-- **[Blocker]:** [Description, impact, resolution path]
-- **[Blocker]:** [Description, impact, resolution path]
+None.
 
 ### External Dependencies
-- **[Dependency]:** [What's needed, from whom, status]
-- **[Dependency]:** [What's needed, from whom, status]
+- **DESI Data Portal:** VAC FITS file availability for Phase 05
+- **proj-pg01:** PostgreSQL availability for ETL work
+- **proj-fs02:** Network storage for Parquet exports
+
+---
 
 ## Notes and Observations
 
-<!-- Patterns noticed, insights gained, things to remember -->
-
 ### Recent Insights
-- [Pattern or learning from recent work]
-- [Pattern or learning from recent work]
+- Deep research with multiple frontier models validated architectural decisions
+- Systematic VAC review revealed significant gaps in original schema (5 new VACs)
+- Three-layer enrichment model (Foundation → Physics → AI) architecturally sound
+- PostgreSQL as materialization engine, Parquet as distribution format confirmed
 
 ### Context for Next Session
-<!-- Anything the next session's AI agent should know -->
-
-[Free-form notes about context that matters for continuity]
-
-<!--
-MAINTENANCE GUIDANCE:
-
-Update "Current State" after completing significant work
-Update "Next Steps" before ending session - what should happen next?
-Move completed items from "Next Steps" to "Recent Accomplishments"
-Document decisions when made - don't rely on chat history
-Clear resolved blockers, add new ones as discovered
-Keep "Notes and Observations" section focused - don't let it become a dump
-
-This file is the HEARTBEAT of the memory bank. Keep it current.
--->
+- Phase 04 documentation is complete and ready for commit
+- Phase 05 begins with VAC acquisition (milestone 05.1)
+- Schema and data dictionary are authoritative references for ETL work
+- Research archives in `.internal-files/` (gitignored) inform decisions but are not version-controlled

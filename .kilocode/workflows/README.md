@@ -1,9 +1,9 @@
 # Kilo Code Workflows Guide
 
-**Purpose:** Define and document custom workflows for automating multi-step processes  
-**Location:** `.kilocode/workflows/` directory in project root  
-**Integration:** Kilo Code slash commands, custom rules, memory bank system  
-**Status:** Template and guide - implement when ready
+Purpose: Define and document custom workflows for automating multi-step processes  
+Location: `.kilocode/workflows/` directory in project root  
+Integration: Kilo Code slash commands, custom rules, memory bank system  
+Status: Template and guide - implement when ready
 
 ---
 
@@ -24,30 +24,34 @@
 
 ## What Are Workflows?
 
-Workflows are **custom slash commands** that chain multiple Kilo Code actions together into automated sequences. Think of them as AI-powered macros that can understand context and make intelligent decisions.
+Workflows are custom slash commands that chain multiple Kilo Code actions together into automated sequences. Think of them as AI-powered macros that can understand context and make intelligent decisions.
 
 ### Why Workflows?
 
-**Problem:** Repetitive multi-step processes take time and cognitive load
+Problem: Repetitive multi-step processes take time and cognitive load
+
 - Review code → Fix issues → Run tests → Commit → Push → Create PR
 - Load context → Check todos → Generate briefing
 - Security audit → Export report → Create issues → Notify team
 
-**Solution:** Define workflows once, execute with single command
+Solution: Define workflows once, execute with single command
+
 - `/release` - Complete release workflow (test, commit, PR)
 - `/morning-standup` - Generate daily briefing
 - `/security-audit` - Comprehensive security review
 
-**Benefits:**
-- **Consistency** - Same process every time, no forgotten steps
-- **Efficiency** - One command instead of 10 manual steps
-- **Quality** - Built-in validation and custom rule integration
-- **Documentation** - Workflows document your processes
-- **Scalability** - Share workflows across projects/team
+Benefits:
+
+- Consistency - Same process every time, no forgotten steps
+- Efficiency - One command instead of 10 manual steps
+- Quality - Built-in validation and custom rule integration
+- Documentation - Workflows document your processes
+- Scalability - Share workflows across projects/team
 
 ### Real-World Example
 
-**Without Workflow:**
+Without Workflow:
+
 1. Switch to Debug mode
 2. Review code following code-review.md checklist
 3. Check for critical issues
@@ -59,10 +63,12 @@ Workflows are **custom slash commands** that chain multiple Kilo Code actions to
 9. Push
 10. Create PR with description
 
-**With Workflow:**
+With Workflow:
+
 ```bash
 /complete-feature
 ```
+
 Done. All 10 steps automated with intelligent decision-making.
 
 ---
@@ -86,7 +92,8 @@ Start with the simple Release Workflow template below. Copy to `.kilocode/workfl
 ### 4. Test Workflow
 
 In VSCode with Kilo Code:
-```
+
+```text
 /release
 ```
 
@@ -102,9 +109,9 @@ Copy these templates to `.kilocode/workflows/` and customize for your project.
 
 ### 1. Release Workflow
 
-**File:** `release.yml`  
-**Command:** `/release`  
-**Purpose:** Test, commit, and create PR for release
+File: `release.yml`  
+Command: `/release`  
+Purpose: Test, commit, and create PR for release
 
 ```yaml
 name: release
@@ -147,9 +154,9 @@ onComplete:
 
 ### 2. Complete Feature Workflow
 
-**File:** `complete-feature.yml`  
-**Command:** `/complete-feature`  
-**Purpose:** Complete feature branch with review, validation, and PR
+File: `complete-feature.yml`  
+Command: `/complete-feature`  
+Purpose: Complete feature branch with review, validation, and PR
 
 ```yaml
 name: complete-feature
@@ -201,9 +208,9 @@ onError:
 
 ### 3. Security Audit Workflow
 
-**File:** `security-audit.yml`  
-**Command:** `/security-audit`  
-**Purpose:** Comprehensive security review with reporting
+File: `security-audit.yml`  
+Command: `/security-audit`  
+Purpose: Comprehensive security review with reporting
 
 ```yaml
 name: security-audit
@@ -247,9 +254,9 @@ onComplete:
 
 ### 4. Memory Bank Update Workflow
 
-**File:** `update-memory-bank.yml`  
-**Command:** `/update-memory-bank`  
-**Purpose:** Update project memory bank after work session
+File: `update-memory-bank.yml`  
+Command: `/update-memory-bank`  
+Purpose: Update project memory bank after work session
 
 ```yaml
 name: update-memory-bank
@@ -292,9 +299,9 @@ onComplete:
 
 ### 5. Morning Standup Workflow
 
-**File:** `morning-standup.yml`  
-**Command:** `/morning-standup`  
-**Purpose:** Generate morning briefing and setup for day
+File: `morning-standup.yml`  
+Command: `/morning-standup`  
+Purpose: Generate morning briefing and setup for day
 
 ```yaml
 name: morning-standup
@@ -336,9 +343,9 @@ onComplete:
 
 ### 6. Pre-Commit Validation Workflow
 
-**File:** `pre-commit.yml`  
-**Command:** `/pre-commit`  
-**Purpose:** Validate changes before committing
+File: `pre-commit.yml`  
+Command: `/pre-commit`  
+Purpose: Validate changes before committing
 
 ```yaml
 name: pre-commit
@@ -387,9 +394,9 @@ onError:
 
 ### 7. Cross-Agent Coordination Workflow
 
-**File:** `coordinate.yml`  
-**Command:** `/coordinate`  
-**Purpose:** Coordinate change across multiple agents/projects
+File: `coordinate.yml`  
+Command: `/coordinate`  
+Purpose: Coordinate change across multiple agents/projects
 
 ```yaml
 name: coordinate
@@ -435,34 +442,40 @@ onComplete:
 
 ### Step-by-Step Process
 
-**1. Define the Goal**
+1. Define the Goal
+
 - What manual process are you automating?
 - What's the complete sequence of steps?
 - Where are the decision points?
 - What could go wrong?
 
-**2. Choose Workflow Name**
+1. Choose Workflow Name
+
 - Use descriptive, action-oriented names
 - Use hyphens for multi-word names: `update-memory-bank`
 - Command will be: `/your-workflow-name`
 
-**3. Map Out Steps**
+1. Map Out Steps
+
 - List every step in sequence
 - Identify which mode each step needs
 - Determine dependencies between steps
 - Plan for error handling
 
-**4. Reference Custom Rules**
+1. Reference Custom Rules
+
 - Link to commit-conventions.md for commits
 - Link to code-review.md for reviews
 - Link to memory-bank files for context
 
-**5. Add Validation**
+1. Add Validation
+
 - Preconditions (what must be true before starting)
 - Abort conditions (when to stop mid-workflow)
 - Success criteria (how to know it worked)
 
-**6. Test and Iterate**
+1. Test and Iterate
+
 - Run workflow with `/your-workflow-name`
 - Watch for failure points
 - Refine prompts for clarity
@@ -552,16 +565,19 @@ onError:
 
 ### Template Field Reference
 
-**Top Level:**
+Top Level:
+
 - `name` - Workflow identifier (used in slash command)
 - `description` - Human-readable description
 - `trigger` - When workflow runs (manual, git-commit, file-save, schedule)
 
-**Preconditions:**
+Preconditions:
+
 - `check` - Condition name to verify
 - `message` - Error message if condition fails
 
-**Steps:**
+Steps:
+
 - `name` - Step identifier (for dependencies/rollback)
 - `mode` - Kilo Code mode to use (ask/code/debug/architect/orchestrator)
 - `prompt` - Detailed instructions for this step
@@ -570,7 +586,8 @@ onError:
 - `dependsOn` - Explicit dependency on another step
 - `onlyIf` - Only run step if condition met
 
-**onComplete/onError:**
+onComplete/onError:
+
 - `action` - Action to execute (notify/export_report/rollback/etc.)
 - Additional parameters specific to action type
 
@@ -578,25 +595,28 @@ onError:
 
 ## Integration with Custom Rules
 
-Workflows become **10x more powerful** when integrated with our custom rule system.
+Workflows become 10x more powerful when integrated with our custom rule system.
 
 ### Referencing Custom Rules in Workflows
 
-**Commit Generation:**
+Commit Generation:
+
 ```yaml
 - name: generate_commit
   mode: code
   prompt: "Generate commit message following commit-conventions.md rule. Use hybrid emoji + conventional format. Analyze staged changes to determine appropriate type, scope, and description."
 ```
 
-**Code Review:**
+Code Review:
+
 ```yaml
 - name: code_review
   mode: debug
   prompt: "Systematic code review following code-review.md. Use standard review tags (REVIEW, SECURITY, PERFORMANCE, QUESTION, TECHNICAL-DEBT, COORDINATION) with @priority notation. Follow security, performance, and quality checklists."
 ```
 
-**Memory Bank Updates:**
+Memory Bank Updates:
+
 ```yaml
 - name: update_context
   mode: code
@@ -605,13 +625,15 @@ Workflows become **10x more powerful** when integrated with our custom rule syst
 
 ### Why This Integration Matters
 
-**Without Rule Integration:**
+Without Rule Integration:
+
 ```yaml
 prompt: "Generate a commit message"
 # Result: Inconsistent format, missing emoji, no scope, unpredictable quality
 ```
 
-**With Rule Integration:**
+With Rule Integration:
+
 ```yaml
 prompt: "Generate commit message following commit-conventions.md rule"
 # Result: 📦 NEW feat(api): Add user authentication endpoint
@@ -620,22 +642,26 @@ prompt: "Generate commit message following commit-conventions.md rule"
 
 ### Custom Rule Reference Patterns
 
-**For Commits:**
+For Commits:
+
 - Always reference: `commit-conventions.md`
 - Mention: "Use hybrid emoji + conventional format"
 - Specify: "Analyze changes to determine appropriate type and scope"
 
-**For Reviews:**
+For Reviews:
+
 - Always reference: `code-review.md`
 - Mention: "Use standard review tags with @priority"
 - Specify which checklist: "security checklist" / "performance checklist"
 
-**For Memory Bank:**
+For Memory Bank:
+
 - Always reference: `.kilocode/rules/memory-bank/`
 - Specify file: `context.md` / `architecture.md` / `tech.md`
 - Mention structure: "Following memory bank template structure"
 
-**For Auto-Launch:**
+For Auto-Launch:
+
 - Reference prompt from auto-launch config
 - Example: "Analyze git changes since last commit for review tags"
 
@@ -645,55 +671,62 @@ prompt: "Generate commit message following commit-conventions.md rule"
 
 ### 1. Make Workflows Atomic
 
-**✅ Good - Single Complete Task:**
+✅ Good - Single Complete Task:
+
 ```yaml
 name: release
 description: Complete release workflow
 # Test → Commit → Push → PR (one cohesive process)
 ```
 
-**❌ Bad - Mixed Unrelated Concerns:**
+❌ Bad - Mixed Unrelated Concerns:
+
 ```yaml
 name: release-and-update-docs
 description: Release workflow and documentation updates
 # Mixing release process with documentation tasks
 ```
 
-**Principle:** Each workflow should accomplish ONE complete task. If you find yourself using "and" in the description, consider splitting.
+Principle: Each workflow should accomplish ONE complete task. If you find yourself using "and" in the description, consider splitting.
 
 ---
 
 ### 2. Use Appropriate Modes
 
-**ask** - Query, analyze, report (non-invasive, read-only)
+ask - Query, analyze, report (non-invasive, read-only)
+
 ```yaml
 - name: analyze_changes
   mode: ask
   prompt: "Analyze recent commits and summarize work done"
 ```
 
-**code** - Write, modify, execute code (makes changes)
+code - Write, modify, execute code (makes changes)
+
 ```yaml
 - name: commit_changes
   mode: code
   prompt: "Commit staged changes with generated message"
 ```
 
-**debug** - Systematic review following code-review.md
+debug - Systematic review following code-review.md
+
 ```yaml
 - name: security_audit
   mode: debug
   prompt: "Security audit following code-review.md security checklist"
 ```
 
-**architect** - High-level design and planning
+architect - High-level design and planning
+
 ```yaml
 - name: check_architecture
   mode: architect
   prompt: "Review if architectural patterns changed this session"
 ```
 
-**orchestrator** - Coordinate across multiple tasks/agents
+orchestrator - Coordinate across multiple tasks/agents
+
 ```yaml
 - name: coordinate_projects
   mode: orchestrator
@@ -704,7 +737,8 @@ description: Release workflow and documentation updates
 
 ### 3. Include Validation Steps
 
-**Preconditions** (check before starting):
+Preconditions (check before starting):
+
 ```yaml
 preconditions:
   - check: "git_branch_not_main"
@@ -715,7 +749,8 @@ preconditions:
     message: "Stage files you want to commit first"
 ```
 
-**Abort Conditions** (stop mid-workflow if problem detected):
+Abort Conditions (stop mid-workflow if problem detected):
+
 ```yaml
 - name: run_tests
   mode: code
@@ -728,7 +763,8 @@ preconditions:
   abortIf: "critical_items_found"
 ```
 
-**Conditional Steps** (only run if needed):
+Conditional Steps (only run if needed):
+
 ```yaml
 - name: update_architecture
   mode: code
@@ -740,16 +776,18 @@ preconditions:
 
 ### 4. Make Workflows Idempotent
 
-**Idempotent** = Safe to run multiple times without adverse effects
+Idempotent = Safe to run multiple times without adverse effects
 
-**✅ Good - Checks State First:**
+✅ Good - Checks State First:
+
 ```yaml
 - name: stage_changes
   mode: code
   prompt: "Check if files are already staged. If not, stage all modified files."
 ```
 
-**❌ Bad - Assumes Clean State:**
+❌ Bad - Assumes Clean State:
+
 ```yaml
 - name: stage_changes
   mode: code
@@ -757,19 +795,21 @@ preconditions:
   # What if some files were already staged?
 ```
 
-**Pattern:** Always check current state before modifying.
+Pattern: Always check current state before modifying.
 
 ---
 
 ### 5. Provide Good Feedback
 
-**Clear Step Names:**
+Clear Step Names:
+
 ```yaml
 ✅ name: run_tests_and_verify_passing
 ❌ name: step_1
 ```
 
-**Meaningful Messages:**
+Meaningful Messages:
+
 ```yaml
 onComplete:
   ✅ message: "Release workflow complete. PR #123 created successfully."
@@ -780,7 +820,8 @@ onError:
   ❌ message: "Error"
 ```
 
-**Detailed Prompts:**
+Detailed Prompts:
+
 ```yaml
 ✅ prompt: "Generate commit message following commit-conventions.md. Use hybrid emoji + conventional format. Analyze staged changes to determine appropriate type (feat/fix/docs), scope, and description."
 
@@ -791,7 +832,8 @@ onError:
 
 ### 6. Reference Project Standards
 
-**Always Reference Custom Rules:**
+Always Reference Custom Rules:
+
 ```yaml
 # For commits
 prompt: "Generate commit following commit-conventions.md rule"
@@ -803,7 +845,8 @@ prompt: "Code review following code-review.md checklist"
 prompt: "Update .kilocode/rules/memory-bank/context.md"
 ```
 
-**Why This Matters:**
+Why This Matters:
+
 - Consistency across all workflows
 - Quality standards automatically applied
 - Changes to rules propagate to all workflows
@@ -813,7 +856,8 @@ prompt: "Update .kilocode/rules/memory-bank/context.md"
 
 ### 7. Handle Errors Gracefully
 
-**Specify Error Actions:**
+Specify Error Actions:
+
 ```yaml
 onError:
   - action: notify
@@ -824,7 +868,8 @@ onError:
     steps: [step_1, step_2]  # Undo changes from these steps
 ```
 
-**Provide Recovery Guidance:**
+Provide Recovery Guidance:
+
 ```yaml
 onError:
   - action: notify
@@ -846,7 +891,7 @@ Proven workflow patterns for frequent use cases.
 
 ### Pattern 1: Review → Fix → Commit
 
-**Use Case:** Complete feature with quality checks
+Use Case: Complete feature with quality checks
 
 ```yaml
 steps:
@@ -871,13 +916,13 @@ steps:
     prompt: "Commit with generated message"
 ```
 
-**When to Use:** Feature completion, bug fixes, any PR-bound work
+When to Use: Feature completion, bug fixes, any PR-bound work
 
 ---
 
 ### Pattern 2: Analyze → Report → Export
 
-**Use Case:** Generate reports and summaries
+Use Case: Generate reports and summaries
 
 ```yaml
 steps:
@@ -897,13 +942,13 @@ steps:
     prompt: "Export report to staging/ directory"
 ```
 
-**When to Use:** Status reports, audits, briefings, summaries
+When to Use: Status reports, audits, briefings, summaries
 
 ---
 
 ### Pattern 3: Validate → Execute → Verify
 
-**Use Case:** Safe execution of changes
+Use Case: Safe execution of changes
 
 ```yaml
 steps:
@@ -924,13 +969,13 @@ steps:
     prompt: "Verify action completed successfully"
 ```
 
-**When to Use:** Deployments, releases, critical changes
+When to Use: Deployments, releases, critical changes
 
 ---
 
 ### Pattern 4: Scan → Tag → Track
 
-**Use Case:** Identify and track issues
+Use Case: Identify and track issues
 
 ```yaml
 steps:
@@ -950,13 +995,13 @@ steps:
     prompt: "Export to staging and create tracking issues"
 ```
 
-**When to Use:** Security audits, technical debt reviews, quality checks
+When to Use: Security audits, technical debt reviews, quality checks
 
 ---
 
 ### Pattern 5: Load → Process → Update
 
-**Use Case:** Context-aware updates
+Use Case: Context-aware updates
 
 ```yaml
 steps:
@@ -976,7 +1021,7 @@ steps:
     prompt: "Update memory bank files with new information"
 ```
 
-**When to Use:** Memory bank updates, session summaries, state tracking
+When to Use: Memory bank updates, session summaries, state tracking
 
 ---
 
@@ -986,18 +1031,21 @@ steps:
 
 #### Issue: Workflow fails at specific step
 
-**Symptoms:**
+Symptoms:
+
 - Workflow stops mid-execution
 - Error message about specific step
 - Partial completion
 
-**Diagnosis:**
+Diagnosis:
+
 1. Check step dependencies - does step require output from previous step?
 2. Verify mode is appropriate - is `code` mode needed for file changes?
 3. Review prompt clarity - is prompt specific and actionable?
 4. Check preconditions - are all requirements met?
 
-**Solutions:**
+Solutions:
+
 ```yaml
 # Add explicit dependency
 - name: step_2
@@ -1018,16 +1066,18 @@ preconditions:
 
 #### Issue: Workflow doesn't reference custom rules
 
-**Symptoms:**
+Symptoms:
+
 - Generated commits don't follow commit-conventions.md format
 - Reviews don't use standard tags from code-review.md
 - Inconsistent quality across workflow runs
 
-**Diagnosis:**
+Diagnosis:
 Prompt doesn't explicitly mention rule file name
 
-**Solution:**
+Solution:
 Always explicitly reference rule files:
+
 ```yaml
 # Bad - no rule reference
 prompt: "Generate commit message"
@@ -1046,17 +1096,20 @@ prompt: "Code review following code-review.md. Use standard review tags with @pr
 
 #### Issue: Workflow takes too long
 
-**Symptoms:**
+Symptoms:
+
 - Workflow hangs or times out
 - Long wait between steps
 - VSCode becomes unresponsive
 
-**Diagnosis:**
+Diagnosis:
+
 1. Too many synchronous steps with `waitForCompletion: true`
 2. Prompts too broad or complex
 3. Processing entire codebase unnecessarily
 
-**Solutions:**
+Solutions:
+
 ```yaml
 # Set waitForCompletion: false for non-critical steps
 - name: export_report
@@ -1075,16 +1128,18 @@ prompt: "Scan git changes since last commit"  # Not "scan entire codebase"
 
 #### Issue: Workflow modifies wrong files
 
-**Symptoms:**
+Symptoms:
+
 - Unexpected file changes
 - Modified files outside intended scope
 - Incorrect path in updates
 
-**Diagnosis:**
+Diagnosis:
 Prompt not specific enough about file paths
 
-**Solution:**
+Solution:
 Use explicit absolute paths:
+
 ```yaml
 # Bad - ambiguous
 prompt: "Update context.md"
@@ -1103,15 +1158,17 @@ prompt: "Export report to vault/staging/review-{date}.md"
 
 #### Issue: Workflow doesn't abort when it should
 
-**Symptoms:**
+Symptoms:
+
 - Continues despite critical failures
 - Commits code with failing tests
 - Doesn't respect abort conditions
 
-**Diagnosis:**
+Diagnosis:
 Abort conditions not properly defined or detected
 
-**Solution:**
+Solution:
+
 ```yaml
 # Define clear abort conditions
 - name: run_tests
@@ -1130,17 +1187,20 @@ Abort conditions not properly defined or detected
 
 #### Issue: Can't find workflow command
 
-**Symptoms:**
+Symptoms:
+
 - `/workflow-name` not recognized
 - No autocomplete for workflow
 - "Command not found" error
 
-**Diagnosis:**
+Diagnosis:
+
 1. File not in `.kilocode/workflows/` directory
 2. File name doesn't match workflow name
 3. YAML syntax error preventing load
 
-**Solutions:**
+Solutions:
+
 ```bash
 # Check file location
 ls .kilocode/workflows/
@@ -1163,16 +1223,18 @@ Recommended order for implementing workflows in your projects.
 
 ### Phase 1: Foundation (Week 1)
 
-**Goal:** Get comfortable with workflow basics
+Goal: Get comfortable with workflow basics
 
-**Steps:**
+Steps:
+
 1. Create `.kilocode/workflows/` directory
 2. Copy `_TEMPLATE.yml` from this guide
-3. Implement **Release Workflow** (simplest, high value)
+3. Implement Release Workflow (simplest, high value)
 4. Test with `/release` on feature branch
 5. Iterate based on results
 
-**Success Criteria:**
+Success Criteria:
+
 - ✅ Release workflow runs successfully
 - ✅ Generates commit following commit-conventions.md
 - ✅ Creates PR with description
@@ -1182,15 +1244,17 @@ Recommended order for implementing workflows in your projects.
 
 ### Phase 2: Quality Integration (Week 2)
 
-**Goal:** Add code review and validation
+Goal: Add code review and validation
 
-**Steps:**
-1. Implement **Pre-Commit Validation Workflow**
-2. Implement **Complete Feature Workflow**
+Steps:
+
+1. Implement Pre-Commit Validation Workflow
+2. Implement Complete Feature Workflow
 3. Test with feature branches
 4. Refine review prompts based on findings
 
-**Success Criteria:**
+Success Criteria:
+
 - ✅ Pre-commit catches issues before commit
 - ✅ Complete feature workflow includes review
 - ✅ Review tags follow code-review.md standards
@@ -1200,15 +1264,17 @@ Recommended order for implementing workflows in your projects.
 
 ### Phase 3: Context Management (Week 3)
 
-**Goal:** Automate memory bank maintenance
+Goal: Automate memory bank maintenance
 
-**Steps:**
-1. Implement **Memory Bank Update Workflow**
-2. Implement **Morning Standup Workflow**
+Steps:
+
+1. Implement Memory Bank Update Workflow
+2. Implement Morning Standup Workflow
 3. Test session end updates
 4. Test morning briefing accuracy
 
-**Success Criteria:**
+Success Criteria:
+
 - ✅ Memory bank stays current automatically
 - ✅ Morning standup provides useful briefing
 - ✅ Context.md reflects actual project state
@@ -1218,15 +1284,17 @@ Recommended order for implementing workflows in your projects.
 
 ### Phase 4: Advanced Workflows (Week 4+)
 
-**Goal:** Specialized workflows for specific needs
+Goal: Specialized workflows for specific needs
 
-**Steps:**
-1. Implement **Security Audit Workflow** (if security-critical project)
-2. Implement **Cross-Agent Coordination Workflow** (if multi-agent setup)
+Steps:
+
+1. Implement Security Audit Workflow (if security-critical project)
+2. Implement Cross-Agent Coordination Workflow (if multi-agent setup)
 3. Create custom workflows for your specific processes
 4. Document team-specific workflow patterns
 
-**Success Criteria:**
+Success Criteria:
+
 - ✅ All repetitive processes have workflows
 - ✅ Team consistently uses workflows
 - ✅ Workflows integrated with custom rules
@@ -1236,19 +1304,22 @@ Recommended order for implementing workflows in your projects.
 
 ### Maintenance and Evolution
 
-**Monthly:**
+Monthly:
+
 - Review workflow usage (which are used, which aren't)
 - Collect feedback on pain points
 - Refine prompts based on results
 - Add new workflows for emerging patterns
 
-**Quarterly:**
+Quarterly:
+
 - Audit workflow consistency with custom rules
 - Update workflows for rule changes
 - Archive unused workflows
 - Document new workflow patterns discovered
 
-**Annually:**
+Annually:
+
 - Complete workflow system review
 - Major refactoring if needed
 - Update this guide with lessons learned
@@ -1258,31 +1329,33 @@ Recommended order for implementing workflows in your projects.
 
 ## Next Steps
 
-1. **Create workflows directory:** `mkdir -p .kilocode/workflows`
-2. **Copy this README:** Save to `.kilocode/workflows/README.md`
-3. **Copy template:** Save workflow template to `_TEMPLATE.yml`
-4. **Start with one:** Implement Release Workflow first
-5. **Test and iterate:** Run with `/release`, refine, repeat
-6. **Expand gradually:** Add workflows as you identify repetitive processes
-7. **Document patterns:** Update this guide with your discoveries
+1. Create workflows directory: `mkdir -p .kilocode/workflows`
+2. Copy this README: Save to `.kilocode/workflows/README.md`
+3. Copy template: Save workflow template to `_TEMPLATE.yml`
+4. Start with one: Implement Release Workflow first
+5. Test and iterate: Run with `/release`, refine, repeat
+6. Expand gradually: Add workflows as you identify repetitive processes
+7. Document patterns: Update this guide with your discoveries
 
 ---
 
 ## Resources
 
 ### Internal Documentation
-- **Commit Conventions:** `.kilocode/rules/commit-conventions.md`
-- **Code Review Guide:** `.kilocode/rules/code-review.md`
-- **Memory Bank System:** `.kilocode/rules/memory-bank/`
-- **Auto-Launch Config:** `.kilocode/autoLaunch` settings
+
+- Commit Conventions: `.kilocode/rules/commit-conventions.md`
+- Code Review Guide: `.kilocode/rules/code-review.md`
+- Memory Bank System: `.kilocode/rules/memory-bank/`
+- Auto-Launch Config: `.kilocode/autoLaunch` settings
 
 ### External Resources
-- **Kilo Code Workflows Docs:** https://kilocode.ai/docs/features/slash-commands/workflows
-- **Kilo Code Modes:** https://kilocode.ai/docs/features/modes
-- **Custom Rules:** https://kilocode.ai/docs/advanced-usage/custom-rules
+
+- Kilo Code Workflows Docs: <https://kilocode.ai/docs/features/slash-commands/workflows>
+- Kilo Code Modes: <https://kilocode.ai/docs/features/modes>
+- Custom Rules: <https://kilocode.ai/docs/advanced-usage/custom-rules>
 
 ---
 
-**Philosophy:** Workflows encode your processes as executable documentation. They capture tribal knowledge, enforce standards, and scale best practices across team and time. The investment in creating workflows pays exponential dividends in consistency, quality, and efficiency.
+Philosophy: Workflows encode your processes as executable documentation. They capture tribal knowledge, enforce standards, and scale best practices across team and time. The investment in creating workflows pays exponential dividends in consistency, quality, and efficiency.
 
-**Start small, iterate fast, automate everything repetitive.**
+Start small, iterate fast, automate everything repetitive.
