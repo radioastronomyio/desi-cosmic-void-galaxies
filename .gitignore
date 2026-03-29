@@ -13,21 +13,20 @@ secrets/
 credentials/
 config.local.*
 *.secrets
-*.internal-files
 
 # ----------------------------------------------------------------------------
 # VAULT / AGENT WORKFLOW
 # ----------------------------------------------------------------------------
 *-pending.md
 staging/
+spec/
+internal-files/
 
 # ----------------------------------------------------------------------------
 # IDE & EDITOR
 # ----------------------------------------------------------------------------
 .vscode/
 .idea/
-.kilocode/
-.kiro/
 .markdownlint.json
 cspell.json
 *.swp
@@ -137,7 +136,9 @@ data/raw/
 data/processed/
 data/interim/
 data/external/
-.feather
+*.csv
+*.parquet
+*.feather
 *.arrow
 *.tsv
 !data/.gitkeep
@@ -162,9 +163,6 @@ mlartifacts/
 wandb/
 outputs/
 runs/
-
-# Weights & Biases
-wandb/
 
 # TensorBoard
 logs/
@@ -200,12 +198,6 @@ site/
 *.log
 *.tmp
 *.temp
-
-# Sphinx
-docs/_build/
-
-# MkDocs
-site/
 
 # ----------------------------------------------------------------------------
 # OS GENERATED

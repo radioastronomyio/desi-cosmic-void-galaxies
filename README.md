@@ -3,15 +3,15 @@
 title: "DESI Cosmic Void Galaxies"
 description: "Analysis-Ready Dataset factory for DESI DR1 + environmental quenching research"
 author: "VintageDon"
-date: "2025-12-28"
-version: "3.0"
+date: "2026-03-29"
+version: "3.1"
 status: "Active"
 tags:
   - type: project-root
   - domain: [ard, void-science, data-engineering]
   - tech: [python, postgresql, parquet, desi]
 related_documents:
-  - "[ARD Specification](https://github.com/vintagedon/analysis-ready-datasets)"
+  - "[ARD Specification](https://github.com/radioastronomyio/analysis-ready-dataset)"
   - "[QSO Anomaly Detection](https://github.com/radioastronomyio/desi-qso-anomaly-detection)"
   - "[Quasar Outflows](https://github.com/radioastronomyio/desi-quasar-outflows)"
 ---
@@ -26,9 +26,9 @@ related_documents:
 [![Python](https://img.shields.io/badge/Python-3.11+-3776ab?logo=python)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-> The first Analysis-Ready Dataset (ARD) for astronomy — A three-layer enriched dataset built from DESI DR1, with environmental quenching research as the proving ground.
+> The first Analysis-Ready Dataset (ARD) for astronomy: a three-layer enriched dataset built from DESI DR1, with environmental quenching research as the proving ground.
 
-This repository builds an enriched, analysis-ready dataset from DESI Data Release 1, combining galaxy catalogs, void classifications, QSO properties, and spectral data into a unified resource. The environmental quenching study — comparing galaxy properties in cosmic voids versus walls — serves as the first consumer application and validation of the ARD architecture.
+This repository builds an enriched, analysis-ready dataset from DESI Data Release 1, combining galaxy catalogs, void classifications, QSO properties, and spectral data into a unified resource. The environmental quenching study, comparing galaxy properties in cosmic voids versus walls, serves as the first consumer application and validation of the ARD architecture.
 
 Two downstream projects depend on this ARD:
 
@@ -45,7 +45,7 @@ This section provides brief context for those less familiar with the domain. If 
 
 [DESI](https://www.desi.lbl.gov/) (Dark Energy Spectroscopic Instrument) is a ground-based survey collecting spectra for tens of millions of galaxies and quasars to map the universe's large-scale structure. [Data Release 1](https://data.desi.lbl.gov/doc/releases/dr1/) includes spectra for over 18 million unique targets with derived physical properties like stellar mass and star formation rate.
 
-Cosmic voids are vast underdense regions in the universe's large-scale structure — essentially the "bubbles" between the filaments and walls of the cosmic web. Galaxies in voids experience minimal environmental interactions (no mergers, no ram-pressure stripping), making them ideal laboratories for studying intrinsic galaxy evolution.
+Cosmic voids are vast underdense regions in the universe's large-scale structure, essentially the "bubbles" between the filaments and walls of the cosmic web. Galaxies in voids experience minimal environmental interactions (no mergers, no ram-pressure stripping), making them ideal laboratories for studying intrinsic galaxy evolution.
 
 Environmental quenching refers to the suppression of star formation in galaxies due to their surroundings. By comparing void galaxies (isolated) to wall galaxies (in denser environments), we can disentangle "nature" (mass-driven evolution) from "nurture" (environment-driven effects). This is one of the fundamental open questions in galaxy evolution. Recent work using [DESI DR1 BGS data](https://arxiv.org/abs/2507.17243) has shown that void galaxies tend to be fainter, less massive, and more star-forming compared to wall galaxies.
 
@@ -65,13 +65,13 @@ Navigate to what you need based on your interest.
 ### For Data Engineers
 
 - [🏗️ Work Logs](work-logs/README.md) — Complete development history by milestone
-- [📦 Spectral Pipeline](work-logs/03-spectral-tile-pipeline/README.md) — FITS→Parquet conversion (2.3TB → 32GB)
+- [📦 Spectral Pipeline](work-logs/03-spectral-tile-pipeline/README.md) — FITS to Parquet conversion (2.3TB to 32GB)
 - [🗄️ Catalog ETL](work-logs/01-catalog-acquisition/README.md) — PostgreSQL ingestion pipeline
 
 ### For Downstream Consumers
 
 - [📁 ARD Output](desi-cosmic-voids-ard/README.md) — Where materialized products will live
-- [🔗 ARD Specification](https://github.com/vintagedon/analysis-ready-datasets) — Domain-agnostic spec (private)
+- [🔗 ARD Specification](https://github.com/radioastronomyio/analysis-ready-dataset) — Domain-agnostic methodology
 
 ---
 
@@ -202,7 +202,7 @@ Development organized into phases, following a milestone-based structure.
 | 02 | [Catalog Validation](work-logs/02-catalog-validation/README.md) | ✅ Complete | Aug 2025 | 3-stage QA, 98.4% retention |
 | 03 | [Spectral Pipeline](work-logs/03-spectral-tile-pipeline/README.md) | ✅ Complete | Sep 2025 | 10.8K tiles, 98.6% compression |
 | 04 | [ARD Foundations](work-logs/04-ard-foundations/README.md) | ✅ Complete | Dec 2025 | Schema v2.0, 9 VACs, Data Dictionary |
-| 05 | VAC ETL Sprint | ⬜ Next | Jan 2026 | Ingest remaining 7 VACs |
+| 05 | VAC ETL Sprint | ⬜ Next | 2026 | Ingest remaining 7 VACs |
 
 ### Work Tiers
 
@@ -218,37 +218,45 @@ Tasks are categorized by complexity for planning purposes.
 
 ## 📁 Repository Structure
 
-```markdown
+```
 desi-cosmic-void-galaxies/
+├── 📂 assets/                        # Images, diagrams, banners
+├── 📂 config/                        # Configuration files
+├── 📂 data/                          # Large files (LFS tracked)
+├── 📂 desi-cosmic-voids-ard/         # ARD output directory
+├── 📂 docs/
+│   ├── 📂 documentation-standards/   # Templates, tagging strategy
+│   ├── 📄 ARD-SCHEMA-v2.md           # Table structure reference
+│   └── 📄 ARD-DATA-DICTIONARY-v2.md  # Column definitions
+├── 📂 internal-files/                # Working documents
+├── 📂 output/                        # Processing outputs
+├── 📂 shared/                        # Cross-cutting assets (SQL schemas, etc.)
+├── 📂 spec/                          # Specifications
+├── 📂 staging/                       # Staged work
 ├── 📂 work-logs/                     # Milestone-based development history
-│   ├── 01-catalog-acquisition/       # DESIVAST + FastSpecFit → PostgreSQL
-│   ├── 02-catalog-validation/        # Integrity, plausibility, systematics
-│   ├── 03-spectral-tile-pipeline/    # FITS → Parquet (61h production run)
-│   └── 04-ard-foundations/           # Schema design, VAC inventory
-├── 📦 desi-cosmic-voids-ard/         # ARD output directory
-├── 📚 docs/                          # Documentation
-│   ├── ARD-SCHEMA-v2.md              # Table structure reference
-│   ├── ARD-DATA-DICTIONARY-v2.md     # Column definitions
-│   └── documentation-standards/      # Templates
-├── 🔗 shared/                        # Cross-cutting assets (SQL schemas, etc.)
-├── 💾 data/                          # Large files (LFS tracked)
-├── 🗒️ scratch/                       # Session checkpoints
-└── 📝 README.md                      # This file
+│   ├── 📂 01-catalog-acquisition/
+│   ├── 📂 02-catalog-validation/
+│   ├── 📂 03-spectral-tile-pipeline/
+│   └── 📂 04-ard-foundations/
+├── 📄 AGENTS.md                      # Agent instructions
+├── 📄 CLAUDE.md                      # Pointer to AGENTS.md
+├── 📄 ROADMAP.md                     # Full phase plan
+├── 📄 LICENSE
+├── 📄 LICENSE-DATA
+└── 📄 README.md                      # This file
 ```
 
 ---
 
 ## 🖥️ Infrastructure
 
-This project runs on the [Proxmox Astronomy Lab](https://github.com/radioastronomyio/proxmox-astronomy-lab) cluster.
+This project runs on the [radioastronomy.io](https://github.com/radioastronomyio/proxmox-astronomy-lab) research cluster.
 
-| Resource | Node | Purpose |
+| Resource | Host | Purpose |
 |----------|------|---------|
-| PostgreSQL 16 | proj-pg01 | Catalog storage, materialization engine |
-| Spectral tiles | proj-fs02 | Parquet storage (2x10G LACP network) |
-| Python processing | proj-dp01 | ETL, validation, analysis |
-| S3 downloads | edge01 | Long-running transfers |
-| GPU compute | radio-gpu01 | ML training (RTX A4000, 16GB VRAM) |
+| PostgreSQL 16 | radio-pgsql01 (10.25.20.8) | Catalog storage, materialization engine |
+| Spectral tiles | radio-fs02 (10.25.20.15) | Parquet storage |
+| GPU compute | ML01 (A4000, 16GB) | ML training, embedding generation |
 
 ---
 
@@ -266,8 +274,9 @@ This project runs on the [Proxmox Astronomy Lab](https://github.com/radioastrono
 
 | Resource | Description |
 |----------|-------------|
-| [ARD Specification](https://github.com/vintagedon/analysis-ready-datasets) | Domain-agnostic spec (private) |
-| [Proxmox Astronomy Lab](https://github.com/radioastronomyio/proxmox-astronomy-lab) | Infrastructure documentation |
+| [analysis-ready-dataset](https://github.com/radioastronomyio/analysis-ready-dataset) | Domain-agnostic ARD methodology |
+| [astronomy-rag-corpus](https://github.com/radioastronomyio/astronomy-rag-corpus) | Literature corpus supporting DESI research |
+| [proxmox-astronomy-lab](https://github.com/radioastronomyio/proxmox-astronomy-lab) | Infrastructure documentation |
 | [DESI DR1 Portal](https://data.desi.lbl.gov/doc/releases/dr1/) | Official data documentation |
 | [DESIVAST VAC](https://data.desi.lbl.gov/doc/releases/dr1/vac/desivast/) | Void catalog source |
 | [FastSpecFit VAC](https://data.desi.lbl.gov/doc/releases/dr1/vac/fastspecfit/) | Galaxy properties source |
@@ -276,17 +285,17 @@ This project runs on the [Proxmox Astronomy Lab](https://github.com/radioastrono
 
 ## 📜 License
 
-This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
 ## 🙏 Acknowledgments
 
-- [DESI Collaboration](https://www.desi.lbl.gov/) — Data Release 1 public data
-- DESIVAST Team — Void catalog across 4 algorithms
-- FastSpecFit Team — Galaxy stellar population measurements
-- Proxmox Astronomy Lab — Research infrastructure
+- [DESI Collaboration](https://www.desi.lbl.gov/) for Data Release 1 public data
+- DESIVAST Team for void catalog across 4 algorithms
+- FastSpecFit Team for galaxy stellar population measurements
+- radioastronomy.io research cluster for infrastructure
 
 ---
 
-Last Updated: December 28, 2025 | Current Phase: ARD Foundations Complete
+Last Updated: 2026-03-29 | Current Phase: ARD Foundations Complete, VAC ETL Sprint Next
